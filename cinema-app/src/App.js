@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import CinemaMovies from "./CinemaMovies";
 import CinemaRooms from "./CinemaRooms";
+import CinemaScreenings from './CinemaScreenings';
 import PageNotFound from './PageNotFound';
 import MovieDetails from './MovieDetails.js'
 import React from 'react';
@@ -38,17 +39,30 @@ class App extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        Sreenings: {
-          screeningsDates: ["20.11.2021", "21.11.2021", "22.11.2021"],
-          screeningsHours: ["19:10", "20:30", "16:00"],
-          screeningsMoviesId: [0, 1, 2],
-          roomId: [0, 1, 2],
-          roomsOccupations: [
-            [10, 11, 12, 14],
-            [1, 2, 3, 4, 5],
-            [20, 21, 22, 23, 24]
-          ]
-        },
+        Screenings: [
+          {
+            screeningsDates: "20.11.2021",
+            screeningsHours: "19:10",
+            screeningsMoviesId: 0,
+            roomId: 0, 
+            roomsOccupations: [10, 11, 12, 14],
+          },
+          {
+            screeningsDates: "21.11.2021",
+            screeningsHours: "20:30",
+            screeningsMoviesId: 1,
+            roomId: 1, 
+            roomsOccupations: [1, 2, 3, 4, 5],
+          },
+          {
+            screeningsDates: "22.11.2021",
+            screeningsHours: "16:00",
+            screeningsMoviesId: 2,
+            roomId: 2, 
+            roomsOccupations: [20, 21, 22, 23, 24],
+          },
+        ],
+
         Movies: [
           { 
             movieTitle: "The Conjuring",
@@ -63,6 +77,7 @@ class App extends React.Component {
             movieDuration: 150,
           },
         ],
+
         Rooms: {
           roomNumber: [101, 104, 109],
           roomCapacity: [50, 80, 100],
@@ -70,16 +85,17 @@ class App extends React.Component {
       }
     }
     render() {
+
       return ( 
         <div id="mainPanel">
-        <Link to = "/Rooms" > <button> Rooms </button></Link >
+        <Link to = "/Ticket" > <button> Buy a Ticket </button></Link >
         <Link to = "/Movies" > < button > Movies </button></Link >
         <Link to = "/Screeings" > < button > Screenings </button></Link >
         <Routes>
           <Route exact path = "/Movies" element = {< CinemaMovies data = { this.state } /> } />
           <Route exact path = "/Movies/:id" element = {< MovieDetails movies = { this.state.Movies } /> } />
 
-          <Route exact path = "/Screeings" element = {< App data = { this.state } /> } />
+          <Route exact path = "/Screeings" element = {< CinemaScreenings screenings = { this.state.Screenings } /> } />
           <Route exact path = "/Rooms" element = { < CinemaRooms data = { this.state } /> } />
           <Route exact path = "*" element = { < PageNotFound /> }/> 
         </Routes>
