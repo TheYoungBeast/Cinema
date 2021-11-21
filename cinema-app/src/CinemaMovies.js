@@ -1,16 +1,8 @@
 import React from "react";
-import {
-    Route,
-    Routes,
-    Link
-  } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class CinemaMovies extends React.Component
 {
-    constructor(props) {
-        super(props);
-    }
-
     getMovieData = (id) => {
         return {
             id: id,
@@ -21,15 +13,20 @@ class CinemaMovies extends React.Component
 
     render() { 
         return (
-            <div>
+            <div key="movie-list">
             <h3>Movie list: </h3>
+            <ol>
             { this.props.data.Movies.map((product, index) => {
                 return ( 
-                    <div>
-                        <p><span><Link to={`/Movies/${index}`}>{product.movieTitle}</Link>    Czas trwania: {product.movieDuration} </span></p>
-                    </div>
-                    )})
+                    <li key={"movie-item-"+index}>
+                        <p>
+                            <Link to={`/movies/${index}`}>{product.movieTitle}</Link>
+                            <span> Czas trwania: {product.movieDuration}</span>
+                        </p>
+                    </li>);
+                })
             }
+            </ol>
             </div>
         )
     }

@@ -1,42 +1,17 @@
+import React from 'react';
+import { Route, Routes, Link } from 'react-router-dom';
 import './App.css';
-import {
-  Route,
-  Routes,
-  Link
-} from 'react-router-dom';
+
 import CinemaMovies from "./CinemaMovies";
 import CinemaRooms from "./CinemaRooms";
 import CinemaScreenings from './CinemaScreenings';
 import PageNotFound from './PageNotFound';
 import MovieDetails from './MovieDetails.js'
-import React from 'react';
+import EditMovie from './EditMovie';
 
 class App extends React.Component {
-    // return <div key="app-return">
-    //   { props.data.screeningsDates.map((value, index) => {
-    //     return <div key={"app-return-data" + index}>
-    //       <p>
-    //         <label>Date </label>
-    //         {value}
-    //       </p>
-    //       <p>
-    //         <label>Time </label>
-    //         {props.data.screeningsHours[index]}
-    //       </p>
-    //       <p>
-    //         <label> Index </label>
-    //         {props.data.screeningsMoviesId[index]}
-    //       </p>
-    //       <p>
-    //         <label> Room Occupation </label>
-    //         {props.data.roomsOccupations[index].map((v) => {
-    //           return v.toString() + " ,";
-    //         })}
-    //       </p>
-    //       </div>
-    //   }) }
-    // </div>
-    constructor(props) {
+    constructor(props) 
+    {
       super(props);
       this.state = {
         Screenings: [
@@ -67,14 +42,17 @@ class App extends React.Component {
           { 
             movieTitle: "The Conjuring",
             movieDuration: 112,
+            movieDesc: "Short movie descripton..."
           },
           {
             movieTitle: "Rampage",
             movieDuration: 107,
+            movieDesc: "Short movie descripton..."
           },
           {
             movieTitle: "Tenet",
             movieDuration: 150,
+            movieDesc: "Short movie descripton..."
           },
         ],
 
@@ -84,20 +62,43 @@ class App extends React.Component {
         }
       }
     }
+
+    editMovie = (movie) => {
+      let id = movie.movieId;
+      let movies =  this.state.Movies;
+      movies[id].movieTitle = movie.movieTitle;
+      movies[id].movieDesc = movie.movieDesc;
+      movies[id].movieDuration = movie.movieDuration;
+
+      this.setState(prevState => {
+        return {
+          Screenings: prevState.Screenings,
+          Movies: movies,
+          Rooms: prevState.Rooms
+        };
+      });
+    }
+
     render() {
 
       return ( 
         <div id="mainPanel">
-        <Link to = "/Ticket" > <button> Buy a Ticket </button></Link >
-        <Link to = "/Movies" > < button > Movies </button></Link >
-        <Link to = "/Screeings" > < button > Screenings </button></Link >
-        <Routes>
-          <Route exact path = "/Movies" element = {< CinemaMovies data = { this.state } /> } />
-          <Route exact path = "/Movies/:id" element = {< MovieDetails movies = { this.state.Movies } /> } />
+        <Link to = "/ticket" > <button> Buy a Ticket </button> </Link >
+        <Link to = "/movies" > < button > Movies </button> </Link >
+        <Link to = "/screeings" > < button > Screenings </button> </Link >
 
-          <Route exact path = "/Screeings" element = {< CinemaScreenings screenings = { this.state.Screenings } /> } />
-          <Route exact path = "/Rooms" element = { < CinemaRooms data = { this.state } /> } />
-          <Route exact path = "*" element = { < PageNotFound /> }/> 
+        <Routes>
+          <Route path="/" element={<div>Main</div>} />
+
+          <Route path="movies">
+            <Route path="" element={<CinemaMovies data={ this.state } />} />
+            <Route path=":id" element = {<MovieDetails movies={ this.state.Movies } /> } />
+            <Route path=":id/edit" element={<EditMovie editMovie={this.editMovie} movies={this.state.Movies} />} />
+          </Route>
+
+          <Route path="/screeings" element = {< CinemaScreenings screenings = { this.state.Screenings } /> } />
+          <Route path="/rooms" element = { < CinemaRooms data = { this.state } /> } />
+          <Route path="*" element = {< PageNotFound />}/> 
         </Routes>
         </div>
       );

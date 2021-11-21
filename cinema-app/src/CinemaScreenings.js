@@ -1,17 +1,7 @@
 import React from "react";
-import { Route, Routes, Link } from 'react-router-dom';
-
-import App from "./App";
-import CinemaMovies from "./CinemaMovies";
-import CinemaRooms from "./CinemaRooms";
-import PageNotFound from './PageNotFound';
 
 class CinemaScreenings extends React.Component
 {
-    constructor(props)    {
-        super(props);
-    }
-
     getScreeningsData = (id) => {
         return {
             id: id,
@@ -26,15 +16,13 @@ class CinemaScreenings extends React.Component
         return (<ol>
             {this.props.screenings.map((element, index) => {
                 return(
-                    <li>
+                    <li key={index}>
                         <ul>
-
-                            <li>Screening date: {element.screeningsDates}</li>
-                            <li>{element.screeningsHours}</li>
-                            <li>{element.screeningsMoviesId}</li>
-                            <li>{element.roomId}</li>
-                            <li>{element.roomsOccupations.map((seat) => {return (`${seat}, `)})}</li>
-
+                            <li key={element.screeningsMoviesId+"li-date"}>Screening date: {element.screeningsDates}</li>
+                            <li key={element.screeningsMoviesId+"li-hour"}>{element.screeningsHours}</li>
+                            <li key={element.screeningsMoviesId+"li-id"}>{element.screeningsMoviesId}</li>
+                            <li key={element.screeningsMoviesId+"li-room"}>{element.roomId}</li>
+                            <li key={element.screeningsMoviesId+"li-occupation"}>{element.roomsOccupations.map((seat) => {return (`${seat}, `)})}</li>
                         </ul>
                     </li>
                 )
