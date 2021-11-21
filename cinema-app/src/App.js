@@ -1,25 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+import React from 'react';
+
+function App(props) {
+  return <div key="app-return">
+    { props.data.screeningsDates.map((value, index) => {
+      return <div key={"app-return-data" + index}>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          <label>Date </label>
+          {value}
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+        <p>
+          <label>Time </label>
+          {props.data.screeningsHours[index]}
+        </p>
+        <p>
+          <label> Index </label>
+          {props.data.screeningsMoviesId[index]}
+        </p>
+        <p>
+          <label> Room Occupation </label>
+          {props.data.roomsOccupations[index].map((v) => {
+            return v.toString() + " ,";
+          })}
+        </p>
+        </div>
+    }) }
+  </div>
 }
 
 export default App;

@@ -19,3 +19,5 @@ class CinemaMovies extends React.Component
         };
     }
 }
+
+export default CinemaMovies;
