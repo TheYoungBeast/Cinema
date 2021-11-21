@@ -4,12 +4,12 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom'; 
 
-import CinemaScreenings from './CinemaScreenings';
+import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <CinemaScreenings />
+      <App />
     </Router>
   </React.StrictMode>,
   document.getElementById('root')
