@@ -2,12 +2,13 @@ import React from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 import './App.css';
 
-import CinemaMovies from "./CinemaMovies";
-import CinemaRooms from "./CinemaRooms";
-import CinemaScreenings from './CinemaScreenings';
+import RemoveMovie from './Movies/RemoveMovie';
+import CinemaMovies from "./Movies/CinemaMovies";
+import CinemaRooms from "./Rooms/CinemaRooms";
+import CinemaScreenings from './Screenings/CinemaScreenings';
 import PageNotFound from './PageNotFound';
-import MovieDetails from './MovieDetails.js'
-import EditMovie from './EditMovie';
+import MovieDetails from './Movies/MovieDetails.js'
+import EditMovie from './Movies/EditMovie';
 
 class App extends React.Component {
     constructor(props) 
@@ -56,10 +57,20 @@ class App extends React.Component {
           },
         ],
 
-        Rooms: {
-          roomNumber: [101, 104, 109],
-          roomCapacity: [50, 80, 100],
-        }
+        Rooms: [
+          {
+            roomNumber: 101,
+            roomCapacity: 50,
+          },
+          {
+            roomNumber: 104,
+            roomCapacity: 80,
+          },
+          {
+            roomNumber: 109,
+            roomCapacity: 100
+          },
+        ]
       }
     }
 
@@ -79,6 +90,18 @@ class App extends React.Component {
       });
     }
 
+    removeMovie = (movie) => {
+      this.setState(prevState => {
+        let list = prevState.Movies;
+
+        list = list.filter(element => element != movie)
+        console.log(list);
+        return {
+          Movies: list
+        };
+      });
+    }
+
     render() {
 
       return ( 
@@ -94,10 +117,11 @@ class App extends React.Component {
             <Route path="" element={<CinemaMovies data={ this.state } />} />
             <Route path=":id" element = {<MovieDetails movies={ this.state.Movies } /> } />
             <Route path=":id/edit" element={<EditMovie editMovie={this.editMovie} movies={this.state.Movies} />} />
+            <Route path=":id/remove" element={<RemoveMovie removeMovie={this.removeMovie} movies={this.state.Movies} />} />
           </Route>
 
           <Route path="/screeings" element = {< CinemaScreenings screenings = { this.state.Screenings } /> } />
-          <Route path="/rooms" element = { < CinemaRooms data = { this.state } /> } />
+          <Route path="/rooms" element = {< CinemaRooms data = { this.state.Rooms } /> } />
           <Route path="*" element = {< PageNotFound />}/> 
         </Routes>
         </div>
