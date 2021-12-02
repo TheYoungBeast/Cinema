@@ -1,4 +1,4 @@
-import './App.css';
+import './css/App.css';
 
 import React from 'react';
 import axios from 'axios';
@@ -133,7 +133,7 @@ class App extends React.Component
     }
 
     editScreening = (editedScreening) => {
-
+      console.log(editedScreening);
     }
 
     removeScreening = () => {
@@ -166,7 +166,7 @@ class App extends React.Component
             <Route path="" element={<CinemaScreenings screenings={ this.state.screenings } /> }/>
             <Route path="add" element={<AddScreening addScreening={ this.addScreening } />} />
             <Route path=":id">
-              <Route path="" element={<ScreeningDetails screening={ this.state.screenings } /> }/>
+              <Route path="" element={<ScreeningDetails { ...this.state } editScreening={ this.editScreening } /> }/>
               <Route path="edit" element={<EditScreening editScreening={ this.editScreening } /> } />
               <Route path="remove" element={<RemoveScreening removeScreening={ this.removeScreening } screenings = { this.state.screenings} /> } />
             </Route>

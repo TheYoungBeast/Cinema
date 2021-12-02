@@ -1,16 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 class CinemaScreenings extends React.Component
 {
-    getScreeningsData = (id) => {
-        return {
-            id: id,
-            screeningDate: this.state.screeningsDates[id],
-            screeningHours: this.state.screeningsHours[id],
-            roomOccupation: this.state.roomsOccupations[id]
-        };
-    }
-
     render()
     {
         return (<ol>
@@ -18,7 +10,7 @@ class CinemaScreenings extends React.Component
                 return(
                     <li key={index}>
                         <ul>
-                            <li key={element.screeningsMoviesId+"li-date"}>Screening date: {element.date}</li>
+                            <Link to={"./"+index}><li key={element.screeningsMoviesId+"li-date"}>Screening date: {element.date}</li></Link>
                             <li key={element.screeningsMoviesId+"li-hour"}>{element.hours}</li>
                             <li key={element.screeningsMoviesId+"li-id"}>{element.movieId}</li>
                             <li key={element.screeningsMoviesId+"li-room"}>{element.roomId}</li>
