@@ -117,7 +117,7 @@ class App extends React.Component
     }
 
     removeRoom = (id) => {
-      axios.delete(`delete/rooms/${id}`).then( res => {
+      axios.delete(`/delete/rooms/${id}`).then( res => {
         if(res.status === 204)
         {
           this.setState(prevState => {
@@ -129,15 +129,44 @@ class App extends React.Component
     }
 
     addScreening = (screening) => {
-
+      axios.post('/add/screening', screening,  {headers: { 'Content-type': 'application/json'}})
+      .then( res => {
+        if(res.status === 201)
+        {
+          this.setState( prevState => {
+            return {screenings: [...prevState.screenings, screening]};
+          });
+        }
+      }).catch( error => console.error(error.response) );
     }
 
     editScreening = (editedScreening) => {
-      console.log(editedScreening);
+      let screening = Object.assign({}, editedScreening);
+      let { id } = screening;
+      delete screening.id;
+
+      axios.put(`/update/screening/${id}`, screening, {headers: { 'Content-type': 'application/json'}})
+      .then( res => {
+        if(res.status === 200)
+        {
+          this.setState(prevState => {
+            prevState.screenings[id] = screening;
+            return { screenings: [...prevState.screenings] };
+          });
+        }
+      }).catch( error => console.error(error.response) );
     }
 
-    removeScreening = () => {
-
+    removeScreening = (id) => {
+      axios.delete(`/delete/screenings/${id}`).then( res => {
+        if(res.status === 204)
+        {
+          this.setState(prevState => {
+            prevState.screenings.splice(id, 1);
+            return {screenings: [...prevState.screenings]};
+          });
+        }
+      }).catch( error => console.error(error.response) );
     }
 
     render() {
