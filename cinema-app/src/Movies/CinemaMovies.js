@@ -9,12 +9,12 @@ function CinemaMovies(props)
             <div key="movie-list">
             <h3>Movie list: </h3>
                 <ol>
-                    { props.data.Movies.map((product, index) => {
+                    { props.data.movies.map((movie, index) => {
                         return ( 
                             <li key={"movie-item-"+index}>
                                 <p>
-                                    <Link to={`/movies/${index}`}>{product.movieTitle}</Link>
-                                    <span> Czas trwania: {product.movieDuration}</span>
+                                    <Link to={`/movies/${index}`}>{movie.title}</Link>
+                                    <span> Czas trwania: {movie.duration}</span>
                                 </p>
                             </li>);
                         })

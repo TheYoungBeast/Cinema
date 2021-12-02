@@ -1,34 +1,23 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router";
 
-class RemoveMovie extends React.Component
+function RemoveMovie(props)
 {
-    constructor(props)
-    {
-        super(props);
-        this.state = {
-            movie: props.movies[this.props.params.id],
-        };
-    }
+    let { id } = useParams();
+    let navigate = useNavigate();
 
-    onYesClick = () => {
-        let { removeMovie } = this.props;
-        removeMovie(this.state.movie);
-        this.props.navigate('../../');
-    }
+    const onYesClick = () => {
+        let { removeMovie } = props;
+        removeMovie(id);
+        navigate('../../');
+    };
 
-    onNoClick = () => {
-        this.props.navigate('../../' + this.props.params.id);
-    }
+    const onNoClick = () => navigate('../../' + id);
 
-    render()
-    {
-        return (<div>
-            <p>Would you like to remove: {this.state.movie.movieTitle}??</p>
-            <button onClick={this.onYesClick}>Yes</button> | <button onClick={this.onNoClick}>No</button>
-        </div>);
-    }
+    return (<div>
+        <p>Would you like to remove: {props.movies[id].title} ?</p>
+        <button onClick={ onYesClick }>Yes</button> | <button onClick={ onNoClick }>No</button>
+    </div>);
 }
 
-const RemoveMovieWrapper = (props) => (<RemoveMovie {...props} params={useParams()} navigate={useNavigate()} />)
-export default RemoveMovieWrapper;
+export default RemoveMovie;

@@ -11,7 +11,7 @@ function RoomDetails(props)
     return(<div>
         <ul>
             <li>Room Number: {props.rooms[id].roomNumber}</li>
-            <li>Room Capacity: {props.rooms[id].roomCapacity}</li>
+            <li>Room Capacity: {props.rooms[id].capacity}</li>
         </ul>
 
         <Link to={pathname+'/edit'}><button>Edit</button></Link>

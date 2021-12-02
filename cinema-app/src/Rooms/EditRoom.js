@@ -11,14 +11,14 @@ class EditRoom extends React.Component
         this.state = {
             id: id,
             roomNumber: props.rooms[id].roomNumber,
-            roomCapacity: props.rooms[id].roomCapacity
+            capacity: props.rooms[id].capacity
         };
     }
 
     onClick = () => {
         let { editRoom } = this.props;
         editRoom(this.state);
-        this.props.navigate("../");
+        this.props.navigate("../../"+this.state.id);
     }
 
     onChange = (event) => {
@@ -30,9 +30,10 @@ class EditRoom extends React.Component
         {
             case 'input-room-number':
                 key="roomNumber";
+                value = ('000' + value).slice(-3);
                 break;
             case 'input-room-capacity':
-                key="roomCapacity";
+                key="capacity";
                 break;
             default:
                 console.error(`Unhandled case: ${event.target.id}`);
@@ -56,7 +57,7 @@ class EditRoom extends React.Component
                 <label>Room Number</label>
                 <input id="input-room-number" type="number" min="1" onChange={ this.onChange } value={ this.state.roomNumber.toString() } />
                 <label>Room Capacity</label>
-                <input id="input-room-capacity" type="number" min="10" onChange={ this.onChange } value={ this.state.roomCapacity.toString() } />
+                <input id="input-room-capacity" type="number" min="10" onChange={ this.onChange } value={ this.state.capacity.toString() } />
 
                 <button onClick={ this.onClick }>Edit</button>
             </div>);

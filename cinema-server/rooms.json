@@ -1,10 +1,10 @@
 [
     {
-        "roomNumber":"01",
+        "roomNumber":"001",
         "capacity":100
     },
     {
-        "roomNumber":"09",
+        "roomNumber":"009",
         "capacity":100
     },
     {

@@ -1,6 +1,8 @@
-import React from 'react';
-import { Route, Routes, Link } from 'react-router-dom';
 import './App.css';
+
+import React from 'react';
+import axios from 'axios';
+import { Route, Routes, Link } from 'react-router-dom';
 
 import RemoveMovie from './Movies/RemoveMovie';
 import CinemaMovies from "./Movies/CinemaMovies";
@@ -12,121 +14,80 @@ import EditMovie from './Movies/EditMovie';
 import AddMovie from './Movies/AddMovie';
 import RoomDetails from './Rooms/RoomDetails';
 import EditRoom from './Rooms/EditRoom'
+import AddRoom from './Rooms/AddRoom'
+
+axios.defaults.baseURL = "http://localhost:7777";
 
 class App extends React.Component {
     constructor(props) 
     {
       super(props);
-      this.state = {
-        Screenings: [
-          {
-            screeningsDates: "20.11.2021",
-            screeningsHours: "19:10",
-            screeningsMoviesId: 0,
-            roomId: 0, 
-            roomsOccupations: [10, 11, 12, 14],
-          },
-          {
-            screeningsDates: "21.11.2021",
-            screeningsHours: "20:30",
-            screeningsMoviesId: 1,
-            roomId: 1, 
-            roomsOccupations: [1, 2, 3, 4, 5],
-          },
-          {
-            screeningsDates: "22.11.2021",
-            screeningsHours: "16:00",
-            screeningsMoviesId: 2,
-            roomId: 2, 
-            roomsOccupations: [20, 21, 22, 23, 24],
-          },
-        ],
-
-        Movies: [
-          { 
-            movieTitle: "The Conjuring",
-            movieDuration: 112,
-            movieDesc: "Short movie descripton..."
-          },
-          {
-            movieTitle: "Rampage",
-            movieDuration: 107,
-            movieDesc: "Short movie descripton..."
-          },
-          {
-            movieTitle: "Tenet",
-            movieDuration: 150,
-            movieDesc: "Short movie descripton..."
-          },
-        ],
-
-        Rooms: [
-          {
-            roomNumber: 101,
-            roomCapacity: 50,
-          },
-          {
-            roomNumber: 104,
-            roomCapacity: 80,
-          },
-          {
-            roomNumber: 109,
-            roomCapacity: 100
-          },
-        ]
-      }
-    }    
+      this.state = {}
+    }
+    
+    componentDidMount()
+    {
+      axios.get('/')
+      .then( res => {
+        if(res.status === 200)
+          this.setState(res.data);
+      })
+      .catch(error => {
+        console.error(error.response)
+      });
+    }
 
     addMovie = (movie) => {
       this.setState( prevState => {
         return {
-          Screenings: prevState.Screenings,
-          Movies: [...prevState.Movies, movie],
-          Rooms: prevState.Rooms
+          screenings: prevState.screenings,
+          movies: [...prevState.movies, movie],
+          rooms: prevState.rooms
         };
       })
     }
 
-    editMovie = (movie) => {
+    editMovie = (editedMovie) => {
+      let movie = Object.assign({}, editedMovie);
       let id = movie.movieId;
-      let movies =  this.state.Movies;
-      movies[id].movieTitle = movie.movieTitle;
-      movies[id].movieDesc = movie.movieDesc;
-      movies[id].movieDuration = movie.movieDuration;
+      delete movie.movieId;
 
       this.setState(prevState => {
+        prevState.movies[id] = movie;
+        return {...prevState};
+      });
+    }
+
+    removeMovie = (id) => {
+      console.log(id, this.state);
+      this.setState(prevState => {
+        prevState.movies.splice(id, 1);
         return {
-          Screenings: prevState.Screenings,
-          Movies: movies,
-          Rooms: prevState.Rooms
+          screenings: prevState.screenings,
+          movies: [...prevState.movies],
+          rooms: prevState.rooms
         };
       });
     }
 
-    removeMovie = (movie) => {
-      this.setState(prevState => {
-        let list = prevState.Movies;
-
-        list = list.filter(element => element !== movie)
-        console.log(list);
+    addRoom = (room) => {
+      this.setState( prevState => {
         return {
-          Movies: list
+          screenings: prevState.screenings,
+          movies: prevState.movies,
+          rooms: [...prevState.rooms, room]
         };
       });
     }
 
-    editRoom = (room) => {
+    editRoom = (editedRoom) => {
+      let room = Object.assign({}, editedRoom);
       let { id } = room;
-      let rooms = this.state.Rooms;
-      rooms[id].roomNumber = room.roomNumber;
-      rooms[id].roomCapacity = room.roomCapacity;
+      delete room.id;
 
       this.setState(prevState => {
-        return {
-          Screenings: prevState.Screenings,
-          Movies: prevState.Movies,
-          Rooms: rooms
-        }
+        prevState.rooms[id] = room;
+        return {...prevState};
       });
     }
 
@@ -134,10 +95,10 @@ class App extends React.Component {
 
       return ( 
         <div id="mainPanel">
-        <Link to = "/ticket" > <button> Buy a Ticket </button> </Link >
-        <Link to = "/movies" > < button > Movies </button> </Link >
-        <Link to = "/screeings" > < button > Screenings </button> </Link >
-        <Link to="/rooms"> <button> Rooms </button> </Link>
+        <Link to = "/ticket" ><button> Buy a Ticket </button></Link >
+        <Link to = "/movies" >< button > Movies </button></Link >
+        <Link to = "/screenings" >< button > Screenings </button></Link >
+        <Link to="/rooms"><button> Rooms </button></Link>
 
         <Routes>
           <Route path="/" element={<div>Main</div>} />
@@ -146,14 +107,14 @@ class App extends React.Component {
             <Route path="" element={<CinemaMovies addMovie={ this.addMovie } data={ this.state } />} />
             <Route path="add" element={<AddMovie addMovie={ this.addMovie } />} />
             <Route path=":id">
-              <Route path="" element = {<MovieDetails movies={ this.state.Movies } /> } />
-              <Route path="edit" element={<EditMovie editMovie={this.editMovie} movies={this.state.Movies} />} />
-              <Route path="remove" element={<RemoveMovie removeMovie={this.removeMovie} movies={this.state.Movies} />} />
+              <Route path="" element = {<MovieDetails movies={ this.state.movies } /> } />
+              <Route path="edit" element={<EditMovie editMovie={this.editMovie} movies={this.state.movies} />} />
+              <Route path="remove" element={<RemoveMovie removeMovie={this.removeMovie} movies={this.state.movies} />} />
             </Route>
           </Route>
 
           <Route path="screenings">
-            <Route path="" element={< CinemaScreenings screenings={ this.state.Screenings } /> }/>
+            <Route path="" element={<CinemaScreenings screenings={ this.state.screenings } /> }/>
             <Route path="add" />
             <Route path=":id">
               <Route path="" />
@@ -163,11 +124,11 @@ class App extends React.Component {
           </Route>
 
           <Route path="rooms">
-            <Route path="" element={< CinemaRooms rooms={ this.state.Rooms } />} />
-            <Route path="add" />
+            <Route path="" element={<CinemaRooms rooms={ this.state.rooms } />} />
+            <Route path="add" element={<AddRoom addRoom={ this.addRoom } />} />
             <Route path=":id">
-              <Route path="" element={<RoomDetails rooms={ this.state.Rooms } />} />
-              <Route path="edit" element={<EditRoom editRoom={ this.editRoom } rooms={ this.state.Rooms } />} />
+              <Route path="" element={<RoomDetails rooms={ this.state.rooms } />} />
+              <Route path="edit" element={<EditRoom editRoom={ this.editRoom } rooms={ this.state.rooms } />} />
               <Route path="remove"/>
             </Route>
           </Route>

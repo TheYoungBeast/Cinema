@@ -18,11 +18,11 @@ class CinemaScreenings extends React.Component
                 return(
                     <li key={index}>
                         <ul>
-                            <li key={element.screeningsMoviesId+"li-date"}>Screening date: {element.screeningsDates}</li>
-                            <li key={element.screeningsMoviesId+"li-hour"}>{element.screeningsHours}</li>
-                            <li key={element.screeningsMoviesId+"li-id"}>{element.screeningsMoviesId}</li>
+                            <li key={element.screeningsMoviesId+"li-date"}>Screening date: {element.date}</li>
+                            <li key={element.screeningsMoviesId+"li-hour"}>{element.hours}</li>
+                            <li key={element.screeningsMoviesId+"li-id"}>{element.movieId}</li>
                             <li key={element.screeningsMoviesId+"li-room"}>{element.roomId}</li>
-                            <li key={element.screeningsMoviesId+"li-occupation"}>{element.roomsOccupations.map((seat) => {return (`${seat}, `)})}</li>
+                            <li key={element.screeningsMoviesId+"li-occupation"}>{element.occupation.map((seat) => {return (`${seat}, `)})}</li>
                         </ul>
                     </li>
                 )
