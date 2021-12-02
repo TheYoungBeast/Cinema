@@ -15,6 +15,11 @@ import RoomDetails from './Rooms/RoomDetails';
 import RemoveRoom from './Rooms/RemoveRoom';
 
 import CinemaScreenings from './Screenings/CinemaScreenings';
+import AddScreening from './Screenings/AddScreening';
+import EditScreening from './Screenings/EditScreening';
+import ScreeningDetails from './Screenings/ScreeningDetails';
+import RemoveScreening from './Screenings/RemoveScreening';
+
 import PageNotFound from './PageNotFound';
 
 class App extends React.Component {
@@ -81,6 +86,7 @@ class App extends React.Component {
       }
     }    
 
+    // Movies functions
     addMovie = (movie) => {
       this.setState( prevState => {
         return {
@@ -119,6 +125,17 @@ class App extends React.Component {
       });
     }
 
+    // Screenings functions
+    addScreening = (screening) => {
+    }
+
+    editScreening = (screening) => {
+    }
+
+    removeScreening = (screening) => {
+    }
+
+    // Rooms functions
     addRoom = (room) => {
       this.setState( prevState => {
         return {
@@ -162,7 +179,7 @@ class App extends React.Component {
         <div id="mainPanel">
         <Link to = "/ticket" > <button> Buy a Ticket </button> </Link >
         <Link to = "/movies" > < button > Movies </button> </Link >
-        <Link to = "/screeings" > < button > Screenings </button> </Link >
+        <Link to = "/screenings" > < button > Screenings </button> </Link >
         <Link to="/rooms"> <button> Rooms </button> </Link>
 
         <Routes>
@@ -173,18 +190,18 @@ class App extends React.Component {
             <Route path="add" element={<AddMovie addMovie={ this.addMovie } />} />
             <Route path=":id">
               <Route path="" element = {<MovieDetails movies={ this.state.Movies } /> } />
-              <Route path="edit" element={<EditMovie editMovie={this.editMovie} movies={this.state.Movies} />} />
-              <Route path="remove" element={<RemoveMovie removeMovie={this.removeMovie} movies={this.state.Movies} />} />
+              <Route path="edit" element={<EditMovie editMovie={ this.editMovie } movies={ this.state.Movies } />} />
+              <Route path="remove" element={<RemoveMovie removeMovie={ this.removeMovie } movies={ this.state.Movies } />} />
             </Route>
           </Route>
 
           <Route path="screenings">
             <Route path="" element={< CinemaScreenings screenings={ this.state.Screenings } /> }/>
-            <Route path="add" />
+            <Route path="add" element={<AddScreening addScreening={ this.addScreening } /> } />
             <Route path=":id">
-              <Route path="" />
-              <Route path="edit" />
-              <Route path="remove"/>
+              <Route path="" element={<ScreeningDetails screening={ this.state.Screenings } /> }/>
+              <Route path="edit" element={<EditScreening editScreening={ this.editScreening } /> } />
+              <Route path="remove" element={<RemoveScreening removeScreening={ this.removeScreening } screenings = { this.state.Screenings} /> } />
             </Route>
           </Route>
 
