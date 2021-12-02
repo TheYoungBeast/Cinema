@@ -1,34 +1,23 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router";
 
-class RemoveRoom extends React.Component
+function RemoveRoom(props)
 {
-    constructor(props)
-    {
-        super(props);
-        this.state = {
-            room: props.rooms[this.props.params.id],
-        };
-    }
+    let { id } = useParams();
+    let navigate = useNavigate();
 
-    onYesClick = () => {
-        let { removeRoom } = this.props;
-        removeRoom(this.state.room);
-        this.props.navigate('../../');
-    }
+    const onYesClick = () => {
+        let { removeRoom } = props;
+        removeRoom(id);
+        navigate('../../');
+    };
 
-    onNoClick = () => {
-        this.props.navigate('../../' + this.props.params.id);
-    }
+    const onNoClick = () => navigate('../../' + id);
 
-    render()
-    {
-        return (<div>
-            <p>Would you like to remove Room: {this.state.room.roomNumber}??</p>
-            <button onClick={this.onYesClick}>Yes</button> | <button onClick={this.onNoClick}>No</button>
-        </div>);
-    }
+    return (<div>
+        <p>Would you like to remove: {props.rooms[id].roomNumber} ?</p>
+        <button onClick={ onYesClick }>Yes</button> | <button onClick={ onNoClick }>No</button>
+    </div>);
 }
 
-const RemoveRoomWrapper = (props) => (<RemoveRoom {...props} params={useParams()} navigate={useNavigate()} />)
-export default RemoveRoomWrapper;
+export default RemoveRoom;

@@ -14,8 +14,14 @@ import CinemaRooms from "./Rooms/CinemaRooms";
 import AddRoom from './Rooms/AddRoom';
 import EditRoom from './Rooms/EditRoom';
 import RoomDetails from './Rooms/RoomDetails';
-import EditRoom from './Rooms/EditRoom'
-import AddRoom from './Rooms/AddRoom'
+import RemoveRoom from './Rooms/RemoveRoom';
+
+import CinemaScreenings from "./Screenings/CinemaScreenings";
+import ScreeningDetails from "./Screenings/ScreeningDetails";
+import EditScreening from "./Screenings/EditScreening";
+import RemoveScreening from "./Screenings/RemoveScreening";
+
+import PageNotFound from './PageNotFound'
 
 axios.defaults.baseURL = "http://localhost:7777";
 
@@ -40,11 +46,7 @@ class App extends React.Component {
 
     addMovie = (movie) => {
       this.setState( prevState => {
-        return {
-          screenings: prevState.screenings,
-          movies: [...prevState.movies, movie],
-          rooms: prevState.rooms
-        };
+        return { movies: [...prevState.movies, movie] };
       })
     }
 
@@ -62,21 +64,13 @@ class App extends React.Component {
     removeMovie = (id) => {
       this.setState(prevState => {
         prevState.movies.splice(id, 1);
-        return {
-          screenings: prevState.screenings,
-          movies: [...prevState.movies],
-          rooms: prevState.rooms
-        };
+        return { movies: [...prevState.movies] };
       });
     }
 
     addRoom = (room) => {
       this.setState( prevState => {
-        return {
-          screenings: prevState.screenings,
-          movies: prevState.movies,
-          rooms: [...prevState.rooms, room]
-        };
+        return { rooms: [...prevState.rooms, room] };
       });
     }
 
@@ -87,11 +81,12 @@ class App extends React.Component {
 
       this.setState(prevState => {
         prevState.rooms[id] = room;
-        return {...prevState};
+        return {rooms: [...prevState.rooms]};
       });
     }
 
     removeRoom = (id) => {
+      console.log(id);
       this.setState(prevState => {
         prevState.rooms.splice(id, 1);
         return {rooms: [...prevState.rooms]};
@@ -107,7 +102,7 @@ class App extends React.Component {
     }
 
     removeScreening = () => {
-      
+
     }
 
     render() {
@@ -148,7 +143,7 @@ class App extends React.Component {
             <Route path=":id">
               <Route path="" element={<RoomDetails rooms={ this.state.rooms } />} />
               <Route path="edit" element={<EditRoom editRoom={ this.editRoom } rooms={ this.state.rooms } />} />
-              <Route path="remove"/>
+              <Route path="remove" element={<RemoveRoom removeRoom={ this.removeRoom } rooms={ this.state.rooms } />} />
             </Route>
           </Route>
 

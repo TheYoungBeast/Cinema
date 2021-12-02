@@ -7,9 +7,11 @@ class AddMovie extends React.Component
     {
         super(props);
         this.state = {
-            movieTitle: "title",
-            movieDuration: 0,
-            movieDesc: "description"
+            title: "title",
+            duration: 0,
+            description: "description",
+            image: "",
+            trailer: ""
         }
     }
 
@@ -31,17 +33,21 @@ class AddMovie extends React.Component
         switch(event.target.id)
         {
             case 'input-movie-title':
-                key = "movieTitle";
+                key = "title";
                 break;
             case 'input-movie-desc':
-                key = "movieDesc"
+                key = "descriptionc"
                 break;
             case 'input-movie-dur':
-                key = "movieDuration"
+                key = "duration"
+                value = parseInt(value);
+                value = isNaN(value) ? "0" : value;
                 break;
             case 'input-movie-image':
+                key = "image";
                 break;
             case 'input-movie-trailer':
+                key = "trailer";
                 break;
             default:
                 console.error(`Unhandled case: ${event.target.id}`);
