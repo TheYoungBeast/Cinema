@@ -111,21 +111,21 @@ app.post("/add", (req, res) => {
 });
 
 app.post("/add/room", (req, res) => {
-    const {room} = req.body;
+    const room = req.body;
     rooms.push(room);
-
+    
     res.status(201).send();
 });
 
 app.post("/add/movie", (req, res) => {
-    const {movie} = req.body;
+    const movie = req.body;
     movies.push(movie);
 
     res.status(201).send();
 });
 
 app.post("/add/screening", (req, res) => {
-    const {screening} = req.body;
+    const screening = req.body;
     screenings.push(screening);
 
     res.status(201).send();
@@ -161,7 +161,7 @@ app.put("/update/:id", (req, res) => {
 
 app.put("/update/screening/:id", (req, res) => {
     const { id } = req.params;
-    const { screening } = req.body;
+    const screening = req.body;
 
     if(screenings)
     {
@@ -179,7 +179,7 @@ app.put("/update/screening/:id", (req, res) => {
 
 app.put("/update/movie/:id", (req, res) => {
     const { id } = req.params;
-    const { movie } = req.body;
+    const movie = req.body;
 
     if(movies)
     {
@@ -197,7 +197,7 @@ app.put("/update/movie/:id", (req, res) => {
 
 app.put("/update/room/:id", (req, res) => {
     const { id } = req.params;
-    const { room } = req.body;
+    const room = req.body;
 
     if(rooms)
     {

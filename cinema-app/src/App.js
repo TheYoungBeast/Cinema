@@ -20,12 +20,14 @@ import CinemaScreenings from "./Screenings/CinemaScreenings";
 import ScreeningDetails from "./Screenings/ScreeningDetails";
 import EditScreening from "./Screenings/EditScreening";
 import RemoveScreening from "./Screenings/RemoveScreening";
+import AddScreening from './Screenings/AddScreening';
 
 import PageNotFound from './PageNotFound'
 
 axios.defaults.baseURL = "http://localhost:7777";
 
-class App extends React.Component {
+class App extends React.Component 
+{
     constructor(props) 
     {
       super(props);
@@ -45,9 +47,15 @@ class App extends React.Component {
     }
 
     addMovie = (movie) => {
-      this.setState( prevState => {
-        return { movies: [...prevState.movies, movie] };
-      })
+      axios.post('/add/movie', movie, {headers: { 'Content-type': 'application/json'}})
+      .then( res => {
+        if(res.status === 201)
+        {
+          this.setState( prevState => {
+            return { movies: [...prevState.movies, movie] };
+          });
+        }
+      }).catch( error => console.error(error.response) );
     }
 
     editMovie = (editedMovie) => {
@@ -55,23 +63,40 @@ class App extends React.Component {
       let id = movie.movieId;
       delete movie.movieId;
 
-      this.setState(prevState => {
-        prevState.movies[id] = movie;
-        return {...prevState};
-      });
+      axios.put(`/update/movie/${id}`, movie, {headers: { 'Content-type': 'application/json'}})
+      .then( res => {
+        if(res.status === 200)
+        {
+          this.setState(prevState => {
+            prevState.movies[id] = movie;
+            return {...prevState};
+          });
+        }
+      }).catch( error => console.error(error.response) );
     }
 
     removeMovie = (id) => {
-      this.setState(prevState => {
-        prevState.movies.splice(id, 1);
-        return { movies: [...prevState.movies] };
-      });
+      axios.delete(`/delete/movies/${id}`).then( res => {
+        if(res.status === 204)
+        {
+          this.setState(prevState => {
+            prevState.movies.splice(id, 1);
+            return { movies: [...prevState.movies] };
+          });
+        }
+      }).catch( error => console.error(error.response) );
     }
 
     addRoom = (room) => {
-      this.setState( prevState => {
-        return { rooms: [...prevState.rooms, room] };
-      });
+      axios.post('/add/room', room, {headers: { 'Content-type': 'application/json'}})
+      .then( res => {
+        if(res.status === 201)
+        {
+          this.setState( prevState => {
+            return { rooms: [...prevState.rooms, room] };
+          });
+        }
+      }).catch( error => console.error(error.response) );
     }
 
     editRoom = (editedRoom) => {
@@ -79,18 +104,28 @@ class App extends React.Component {
       let { id } = room;
       delete room.id;
 
-      this.setState(prevState => {
-        prevState.rooms[id] = room;
-        return {rooms: [...prevState.rooms]};
-      });
+      axios.put(`/update/room/${id}`, room,  {headers: { 'Content-type': 'application/json'}})
+      .then( res => {
+        if(res.status === 200)
+        {
+          this.setState(prevState => {
+            prevState.rooms[id] = room;
+            return {rooms: [...prevState.rooms]};
+          });
+        }
+      }).catch( error => console.error(error.response) );
     }
 
     removeRoom = (id) => {
-      console.log(id);
-      this.setState(prevState => {
-        prevState.rooms.splice(id, 1);
-        return {rooms: [...prevState.rooms]};
-      });
+      axios.delete(`delete/rooms/${id}`).then( res => {
+        if(res.status === 204)
+        {
+          this.setState(prevState => {
+            prevState.rooms.splice(id, 1);
+            return {rooms: [...prevState.rooms]};
+          });
+        }
+      }).catch( error => console.error(error.response) );
     }
 
     addScreening = (screening) => {
@@ -129,7 +164,7 @@ class App extends React.Component {
 
           <Route path="screenings">
             <Route path="" element={<CinemaScreenings screenings={ this.state.screenings } /> }/>
-            <Route path="add" />
+            <Route path="add" element={<AddScreening addScreening={ this.addScreening } />} />
             <Route path=":id">
               <Route path="" element={<ScreeningDetails screening={ this.state.screenings } /> }/>
               <Route path="edit" element={<EditScreening editScreening={ this.editScreening } /> } />
