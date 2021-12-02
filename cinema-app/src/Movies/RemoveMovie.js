@@ -14,11 +14,11 @@ class RemoveMovie extends React.Component
     onYesClick = () => {
         let { removeMovie } = this.props;
         removeMovie(this.state.movie);
-        this.props.navigate('../');
+        this.props.navigate('../../');
     }
 
     onNoClick = () => {
-        this.props.navigate('../' + this.props.params.id);
+        this.props.navigate('../../' + this.props.params.id);
     }
 
     render()

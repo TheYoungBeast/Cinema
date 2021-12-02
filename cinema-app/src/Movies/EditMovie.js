@@ -16,33 +16,52 @@ class EditMovie extends React.Component
     }
 
     onChange = (event) => {
-        let title = document.getElementById("movie-title-input").value;
-        let dur = parseInt(document.getElementById("movie-duration-input").value) || 0; // change to 0 if NaN
-        let desc = document.getElementById("movie-desc-input").value
+        let key = "";
+        let value = event.target.value;
 
-        this.setState({
-            movieId: this.state.movieId,
-            movieTitle: title,
-            movieDuration: dur,
-            movieDesc: desc
-        });
+        switch(event.target.id)
+        {
+            case 'input-movie-title':
+                key = "movieTitle";
+                break;
+            case 'input-movie-desc':
+                key = "movieDesc"
+                break;
+            case 'input-movie-dur':
+                key = "movieDuration"
+                value = parseInt(value) || 0;
+                break;
+            default:
+                console.error(`Unhandled case: ${event.target.id}`);
+                break;
+        }
+
+        if(key.length)
+        {
+            this.setState(prevState => {
+                let state = prevState;
+                state[ key ] = value;
+
+                return {...state};
+            });
+        }
     }
 
     onClick = () =>{
         let { editMovie } = this.props;
         editMovie(this.state);
-        this.props.navigate('../'+this.state.movieId);
+        this.props.navigate('../../'+this.state.movieId);
     }
 
     render()
     {
         return (<div>
             <label> Title </label>
-            <input onChange={this.onChange} id="movie-title-input" value={this.state.movieTitle} />
+            <input onChange={this.onChange} id="input-movie-title" value={this.state.movieTitle} />
             <label> Duration </label>
-            <input onChange={this.onChange} id="movie-duration-input" value={this.state.movieDuration.toString()} />
+            <input onChange={this.onChange} id="input-movie-dur" value={this.state.movieDuration.toString()} />
             <label> Description </label>
-            <input onChange={this.onChange} id="movie-desc-input" value={this.state.movieDesc} />
+            <input onChange={this.onChange} id="input-movie-desc" value={this.state.movieDesc} />
             <button onClick={this.onClick}>Edit</button>
         </div>);
     }

@@ -1,23 +1,17 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-class CinemaRooms extends React.Component
+function CinemaRooms(props)
 {
-    constructor(props)
-    {
-        super(props);
-        this.state = {
-            roomNumber: [101, 104, 109],
-            roomCapacity: [50, 80, 100],
-        }
-    }
-
-    getRoomData = (id) =>
-    {
-        return {
-            id: id,
-            roomNumber: this.state.roomNumber[ id ],
-            roomCapacity: this.state.roomCapacity[ id ] };
-    } 
+    return (<div>
+        <ol>
+            { props.rooms.map((room, index) => {
+                return ( <li key={"room-item-"+index}>Room Number: {room.roomNumber} Capacity: {room.roomCapacity}
+                <Link to={'./'+index}><span>Details & Actions</span></Link>
+                </li> ); })
+            }
+        </ol>
+    </div>);
 }
 
 export default CinemaRooms;
