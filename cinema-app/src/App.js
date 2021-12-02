@@ -2,16 +2,20 @@ import React from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 import './App.css';
 
-import RemoveMovie from './Movies/RemoveMovie';
 import CinemaMovies from "./Movies/CinemaMovies";
-import CinemaRooms from "./Rooms/CinemaRooms";
-import CinemaScreenings from './Screenings/CinemaScreenings';
-import PageNotFound from './PageNotFound';
+import AddMovie from './Movies/AddMovie';
 import MovieDetails from './Movies/MovieDetails'
 import EditMovie from './Movies/EditMovie';
-import AddMovie from './Movies/AddMovie';
+import RemoveMovie from './Movies/RemoveMovie';
+
+import CinemaRooms from "./Rooms/CinemaRooms";
+import AddRoom from './Rooms/AddRoom';
+import EditRoom from './Rooms/EditRoom';
 import RoomDetails from './Rooms/RoomDetails';
-import EditRoom from './Rooms/EditRoom'
+import RemoveRoom from './Rooms/RemoveRoom';
+
+import CinemaScreenings from './Screenings/CinemaScreenings';
+import PageNotFound from './PageNotFound';
 
 class App extends React.Component {
     constructor(props) 
@@ -115,6 +119,16 @@ class App extends React.Component {
       });
     }
 
+    addRoom = (room) => {
+      this.setState( prevState => {
+        return {
+          Screenings: prevState.Screenings,
+          Movies: prevState.Movies,
+          Rooms: [...prevState.Rooms, room],
+        };
+      })
+    }
+
     editRoom = (room) => {
       let { id } = room;
       let rooms = this.state.Rooms;
@@ -127,6 +141,18 @@ class App extends React.Component {
           Movies: prevState.Movies,
           Rooms: rooms
         }
+      });
+    }
+
+    removeRoom = (room) => {
+      this.setState(prevState => {
+        let list = prevState.Rooms;
+
+        list = list.filter(element => element !== room)
+        console.log(list);
+        return {
+          Rooms: list
+        };
       });
     }
 
@@ -163,12 +189,12 @@ class App extends React.Component {
           </Route>
 
           <Route path="rooms">
-            <Route path="" element={< CinemaRooms rooms={ this.state.Rooms } />} />
-            <Route path="add" />
+            <Route path="" element={<CinemaRooms addRoom={this.addRoom} data={ this.state } />} />
+            <Route path="add" element={<AddRoom addRoom={this.addRoom} />} />
             <Route path=":id">
               <Route path="" element={<RoomDetails rooms={ this.state.Rooms } />} />
               <Route path="edit" element={<EditRoom editRoom={ this.editRoom } rooms={ this.state.Rooms } />} />
-              <Route path="remove"/>
+              <Route path="remove" element={ <RemoveRoom removeRoom={this.removeRoom} rooms={this.state.Rooms} /> } />
             </Route>
           </Route>
 
