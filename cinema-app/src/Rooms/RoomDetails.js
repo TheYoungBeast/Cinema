@@ -3,10 +3,9 @@ import { useLocation, useParams } from "react-router";
 import { Link } from "react-router-dom";
 
 
-function RoomDetails(props)
-{
-    let { id } = useParams();
-    let { pathname } = useLocation();
+function RoomDetails(props) {
+    const id = useParams().id;
+    const { pathname } = useLocation();
 
     return(<div>
         <ul>

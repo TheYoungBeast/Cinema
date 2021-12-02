@@ -4,14 +4,15 @@ import React from 'react';
 import axios from 'axios';
 import { Route, Routes, Link } from 'react-router-dom';
 
-import RemoveMovie from './Movies/RemoveMovie';
 import CinemaMovies from "./Movies/CinemaMovies";
-import CinemaRooms from "./Rooms/CinemaRooms";
-import CinemaScreenings from './Screenings/CinemaScreenings';
-import PageNotFound from './PageNotFound';
+import AddMovie from './Movies/AddMovie';
 import MovieDetails from './Movies/MovieDetails'
 import EditMovie from './Movies/EditMovie';
-import AddMovie from './Movies/AddMovie';
+import RemoveMovie from './Movies/RemoveMovie';
+
+import CinemaRooms from "./Rooms/CinemaRooms";
+import AddRoom from './Rooms/AddRoom';
+import EditRoom from './Rooms/EditRoom';
 import RoomDetails from './Rooms/RoomDetails';
 import EditRoom from './Rooms/EditRoom'
 import AddRoom from './Rooms/AddRoom'
@@ -59,7 +60,6 @@ class App extends React.Component {
     }
 
     removeMovie = (id) => {
-      console.log(id, this.state);
       this.setState(prevState => {
         prevState.movies.splice(id, 1);
         return {
@@ -91,6 +91,25 @@ class App extends React.Component {
       });
     }
 
+    removeRoom = (id) => {
+      this.setState(prevState => {
+        prevState.rooms.splice(id, 1);
+        return {rooms: [...prevState.rooms]};
+      });
+    }
+
+    addScreening = (screening) => {
+
+    }
+
+    editScreening = (editedScreening) => {
+
+    }
+
+    removeScreening = () => {
+      
+    }
+
     render() {
 
       return ( 
@@ -108,8 +127,8 @@ class App extends React.Component {
             <Route path="add" element={<AddMovie addMovie={ this.addMovie } />} />
             <Route path=":id">
               <Route path="" element = {<MovieDetails movies={ this.state.movies } /> } />
-              <Route path="edit" element={<EditMovie editMovie={this.editMovie} movies={this.state.movies} />} />
-              <Route path="remove" element={<RemoveMovie removeMovie={this.removeMovie} movies={this.state.movies} />} />
+              <Route path="edit" element={<EditMovie editMovie={ this.editMovie } movies={ this.state.movies } />} />
+              <Route path="remove" element={<RemoveMovie removeMovie={ this.removeMovie } movies={ this.state.movies } />} />
             </Route>
           </Route>
 
@@ -117,9 +136,9 @@ class App extends React.Component {
             <Route path="" element={<CinemaScreenings screenings={ this.state.screenings } /> }/>
             <Route path="add" />
             <Route path=":id">
-              <Route path="" />
-              <Route path="edit" />
-              <Route path="remove"/>
+              <Route path="" element={<ScreeningDetails screening={ this.state.screenings } /> }/>
+              <Route path="edit" element={<EditScreening editScreening={ this.editScreening } /> } />
+              <Route path="remove" element={<RemoveScreening removeScreening={ this.removeScreening } screenings = { this.state.screenings} /> } />
             </Route>
           </Route>
 
