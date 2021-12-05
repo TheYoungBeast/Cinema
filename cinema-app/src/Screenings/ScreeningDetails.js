@@ -34,12 +34,20 @@ class ScreeningDetails extends React.Component
     }
 
     onBuyTickets = () => {
-        const { editScreening } = this.props;
-        let screening = Object.assign({}, this.state.screening);
-        screening.occupation = screening.occupation.concat(...this.state.selectedSeats.map(Number))
-        screening.id = this.state.id;
-        editScreening(screening);
-        alert("You bought tickets number: " + this.state.selectedSeats.join(', '));
+        if(window.confirm('Are you sure you want to buy these tickets?\n' + this.state.selectedSeats.join(', '))) {
+            const { editScreening } = this.props;
+            let screening = Object.assign({}, this.state.screening);
+            screening.occupation = screening.occupation.concat(...this.state.selectedSeats.map(Number))
+            screening.id = this.state.id;
+            editScreening(screening);
+            alert("You successfully bought tickets no:\n" + this.state.selectedSeats.join(', '));
+            this.setState({
+                selectedSeats: []
+            })
+        }  
+        else {
+            alert("You successfully cancelled purchase");
+        }
     }
     
     onSeatSelected = (event) => {
