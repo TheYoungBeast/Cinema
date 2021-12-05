@@ -103,7 +103,7 @@ class App extends React.Component
             </Route>
 
             <Route path="screenings">
-              <Route path="" element={<CinemaScreenings screenings={ state.screenings }  /> }/>
+              <Route path="" element={<CinemaScreenings screenings={ state.screenings } movies={ state.movies } /> }/>
               <Route path="add" element={<AddScreening addScreening={ this.addScreening } />} />
               <Route path=":id">
                 <Route path="" element={<ScreeningDetails { ...state } editScreening={ this.editScreening } /> }/>
