@@ -18,14 +18,15 @@ class ScreeningDetails extends React.Component
     {
         super(props);
         const { id } = props.params;
-        const { roomId } = props.screenings[id];
+        const { roomId, movieId } = props.screenings[id];
 
         const maxRowNo = 7;
         let bestRowNo = 0;
         let bestRestModulo = props.rooms[roomId].capacity % maxRowNo;
+
         for(let i = 4; i <= maxRowNo; i++ )
         {
-            let modulo = props.rooms[id].capacity % i;
+            let modulo = props.rooms[roomId].capacity % i;
             if(modulo <= bestRestModulo)
             {
                 bestRestModulo = modulo;
@@ -35,8 +36,8 @@ class ScreeningDetails extends React.Component
 
         this.state = {
             id: id,
-            movie: props.movies[id],
-            room: props.rooms[id],
+            movie: props.movies[movieId],
+            room: props.rooms[roomId],
             screening: props.screenings[id],
             bestRowNo: bestRowNo,
             selectedSeats: [],
