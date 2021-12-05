@@ -2,13 +2,12 @@ import React from 'react';
 import { useParams, useLocation } from "react-router";
 import { Link } from 'react-router-dom';
 
-
 function MovieDetails(props) {
     const id = useParams().id;
     const { pathname } = useLocation();
     
-    return (
-            <div>
+    return props.movies[id] ? 
+        (<div>
             <h3>Movie Details: </h3>
             <ul>
                 <li>Name: {props.movies[id].title}</li>
@@ -23,10 +22,7 @@ function MovieDetails(props) {
             <span>
                 <Link to={pathname+"/edit"}><button>Edit</button></Link> | <Link to={pathname+"/remove"}><button>Remove</button></Link>
             </span>
-        </div>
-    )
+        </div>) : null;
 }
 
 export default MovieDetails;
-
-

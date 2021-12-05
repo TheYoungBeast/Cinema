@@ -63,7 +63,8 @@ class EditMovie extends React.Component
 
     render()
     {
-        return (<div>
+        return this.props.movies[this.props.params.id] ? 
+        (<div>
             <label> Title </label>
             <input onChange={this.onChange} id="input-movie-title" value={this.state.title} />
             <label> Duration </label>
@@ -76,7 +77,7 @@ class EditMovie extends React.Component
             <input onChange={this.onChange} id="input-movie-trailer" value={this.state.trailer} />
 
             <button onClick={this.onClick}>Edit</button>
-        </div>);
+        </div>) : null;
     }
 }
 

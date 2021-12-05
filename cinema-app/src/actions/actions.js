@@ -1,4 +1,6 @@
-import * as api from "../api/api";
+import { apiAddMovie, apiAddRoom, apiAddScreening, apiEditMovie,
+        apiEditRoom, apiEditScreening, apiFetchData, apiRemoveMovie, 
+        apiRemoveRoom, apiRemoveScreening } from "../api/api";
 
 export const FETCH_DATA = 'FETCH_DATA';
 
@@ -111,7 +113,7 @@ export const editRoom = (room, id) => (dispatch) => {
 
 export const removeRoom = (id) => (dispatch) => {
     apiRemoveRoom(id).then( res => {
-        if(res.status == 204)
+        if(res.status === 204)
             dispatch(removeRoomAction(id));
     }).catch( e => console.error(e) );
 };
