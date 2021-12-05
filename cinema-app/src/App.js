@@ -24,8 +24,6 @@ import AddScreening from './Screenings/AddScreening';
 
 import PageNotFound from './PageNotFound'
 
-axios.defaults.baseURL = "http://localhost:7777";
-
 class App extends React.Component 
 {
     constructor(props) 
@@ -36,13 +34,13 @@ class App extends React.Component
     
     componentDidMount()
     {
-      axios.get('/')
+      axios.get('http://localhost:7777/')
       .then( res => {
         if(res.status === 200)
           this.setState(res.data);
       })
       .catch(error => {
-        console.error(error.response)
+        console.error(error)
       });
     }
 
