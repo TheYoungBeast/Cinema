@@ -20,7 +20,6 @@ class CinemaScreenings extends React.Component {
     dateConverter = (date) => {
         let str = date.split('-');
         return (date !== '') ? (str[2] + '.' + str[1] + '.' + str[0]) : '';
-        return date;
     }
 
     render()
@@ -35,16 +34,18 @@ class CinemaScreenings extends React.Component {
                     { this.props.screenings.map((element, index) => {
                         let inputData = this.dateConverter(this.state.keyword);
                         if(element.date.includes(inputData))
-                        return(
-                            <li key={index}>
-                                <ul>
-                                    <Link to={"./"+index}><li key={element.screeningsMoviesId+"li-date"}>Screening date: {element.date}</li></Link>
-                                    <li key={element.screeningsMoviesId+"li-hour"}>{element.hours}</li>
-                                    <li key={element.screeningsMoviesId+"li-id"}>{element.movieId}</li>
-                                    <li key={element.screeningsMoviesId+"li-room"}>{element.roomId}</li>
-                                    <li key={element.screeningsMoviesId+"li-occupation"}>{element.occupation.map((seat) => {return (`${seat}, `)})}</li>
-                                </ul>
-                            </li>)})
+                            return(
+                                <li key={index}>
+                                    <ul>
+                                        <Link to={"./"+index}><li key={element.screeningsMoviesId+"li-date"}>Screening date: {element.date}</li></Link>
+                                        <li key={element.screeningsMoviesId+"li-hour"}>{element.hours}</li>
+                                        <li key={element.screeningsMoviesId+"li-id"}>{element.movieId}</li>
+                                        <li key={element.screeningsMoviesId+"li-room"}>{element.roomId}</li>
+                                        <li key={element.screeningsMoviesId+"li-occupation"}>{element.occupation.map((seat) => {return (`${seat}, `)})}</li>
+                                    </ul>
+                                </li>);
+                        else return null;
+                        })
                     }
                 </ol>
             </div>

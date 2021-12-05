@@ -38,7 +38,8 @@ class CinemaRooms extends React.Component {
                                         </span>
                                         <span> Room capacity: {product.capacity}</span>
                                     </p>
-                                </li>);
+                                </li>)
+                            else return null;
                             })
                         }
                     </ol>

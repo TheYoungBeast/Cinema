@@ -20,6 +20,7 @@ import ScreeningDetails from "./Screenings/ScreeningDetails";
 import EditScreening from "./Screenings/EditScreening";
 import RemoveScreening from "./Screenings/RemoveScreening";
 import AddScreening from './Screenings/AddScreening';
+import TrendingScreenings from './Screenings/TrendingScreenings';
 
 import PageNotFound from './PageNotFound'
 
@@ -86,6 +87,7 @@ class App extends React.Component
           <Link to = "/movies" >< button > Movies </button></Link >
           <Link to = "/screenings" >< button > Screenings </button></Link >
           <Link to="/rooms"><button> Rooms </button></Link>
+          <Link to="/trending"><button> Trending Screenings </button></Link>
 
           <Routes>
             <Route path="/" element={<div>Main</div>} />
@@ -119,6 +121,8 @@ class App extends React.Component
                 <Route path="remove" element={<RemoveRoom removeRoom={ this.removeRoom } rooms={ state.rooms } />} />
               </Route>
             </Route>
+
+            <Route path="/trending" element={<TrendingScreenings screenings={ state.screenings } />} />
 
             <Route path="*" element = {< PageNotFound />}/> 
           </Routes>

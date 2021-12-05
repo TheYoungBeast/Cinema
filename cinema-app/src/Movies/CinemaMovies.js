@@ -27,13 +27,14 @@ class CinemaMovies extends React.Component {
                 <ol>
                     { this.props.data.movies.map((movie, index) => {
                         if(movie.title.toLowerCase().includes(this.state.keyword.toLowerCase()))
-                        return ( 
-                            <li key={"movie-item-"+index}>
-                                <p>
-                                    <Link to={`/movies/${index}`}>{movie.title}</Link>
-                                    <span> Czas trwania: {movie.duration}</span>
-                                </p>
-                            </li>);
+                            return ( 
+                                <li key={"movie-item-"+index}>
+                                    <p>
+                                        <Link to={`/movies/${index}`}>{movie.title}</Link>
+                                        <span> Czas trwania: {movie.duration}</span>
+                                    </p>
+                                </li>)
+                        else return null;
                         })
                     }
                 </ol>
