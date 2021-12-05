@@ -19,7 +19,7 @@ class CinemaMovies extends React.Component {
 
     render() {
         return(
-            <div key="movie-list">
+            <div className="main-container" key="movie-list">
                 <h3>Movie list:</h3>
                 <span> 
                         Search for a movie: <input type="text" id="keyword" placeholder="Search by title..." onChange={ this.onChange } /> 

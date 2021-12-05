@@ -22,7 +22,7 @@ function TrendingScreenings(props)
     .sort( ([,a], [,b]) => b-a )
     .map( ([key, val]) => [parseInt(key), val] );
 
-    return (<div>
+    return (<div className="main-container">
         {
             rank.map( entry => {
                 const id = parseInt(entry[0]);

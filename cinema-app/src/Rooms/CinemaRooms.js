@@ -20,7 +20,7 @@ class CinemaRooms extends React.Component {
 
     render() {
         
-        return (<div>
+        return (<div className="main-container">
             
                 <div key="room-list">
                     <h3>Room list:</h3>
