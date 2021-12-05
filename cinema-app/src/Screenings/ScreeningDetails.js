@@ -3,6 +3,15 @@ import { useParams } from "react-router";
 
 import '../css/ScreeningDetails.css';
 
+function PurchaseDetails(props)
+{
+    return (<div>
+        <p>Dziękujemy za zakup biletów!</p>
+        <p>Siedzenia które wybrałeś: </p>
+        <p>{props.seats.join(', ')}</p>
+    </div>);
+}
+
 class ScreeningDetails extends React.Component
 {
     constructor(props)
@@ -29,25 +38,18 @@ class ScreeningDetails extends React.Component
             room: props.rooms[id],
             screening: props.screenings[id],
             bestRowNo: bestRowNo,
-            selectedSeats: []
+            selectedSeats: [],
+            purchased: false
         }
     }
 
     onBuyTickets = () => {
-        if(window.confirm('Are you sure you want to buy these tickets?\n' + this.state.selectedSeats.join(', '))) {
-            const { editScreening } = this.props;
-            let screening = Object.assign({}, this.state.screening);
-            screening.occupation = screening.occupation.concat(...this.state.selectedSeats.map(Number))
-            screening.id = this.state.id;
-            editScreening(screening);
-            alert("You successfully bought tickets no:\n" + this.state.selectedSeats.join(', '));
-            this.setState({
-                selectedSeats: []
-            })
-        }  
-        else {
-            alert("You successfully cancelled purchase");
-        }
+        const { editScreening } = this.props;
+        let screening = Object.assign({}, this.state.screening);
+        screening.occupation = screening.occupation.concat(...this.state.selectedSeats)
+        screening.id = this.state.id;
+        editScreening(screening);
+        this.setState({purchased: true});
     }
     
     onSeatSelected = (event) => {
@@ -55,7 +57,7 @@ class ScreeningDetails extends React.Component
         {
             if(!Array.from(event.target.classList).includes("active"))
             {
-                let seatNumber = event.target.dataset.seatNo;
+                let seatNumber = parseInt(event.target.dataset.seatNo);
 
                 if(!seatNumber || isNaN(seatNumber))
                     return;
@@ -92,7 +94,8 @@ class ScreeningDetails extends React.Component
         const seatsInRow = new Array(seatsPerRow);
         seatsInRow.fill(undefined);
         
-        return (<div>
+        return this.state.purchased ? <PurchaseDetails seats={this.state.selectedSeats} /> : 
+        (<div>
             <ul>
                 <li>Title: {this.state.movie.title}</li>
                 <li>Duration: {this.state.movie.duration}</li>
