@@ -41,6 +41,13 @@ class ScreeningDetails extends React.Component
             screening.id = this.state.id;
             editScreening(screening);
             alert("You successfully bought tickets no:\n" + this.state.selectedSeats.join(', '));
+
+            const selectedSeatsElements = this.state.selectedSeats.map(i => document.querySelector(`[data-seat-no="${i}"]`))
+            console.log(selectedSeatsElements)
+            selectedSeatsElements.forEach(element => {
+                element.classList.remove('selected')
+                element.classList.add('active')})  
+
             this.setState({
                 selectedSeats: []
             })
