@@ -72,7 +72,7 @@ class AddScreening extends React.Component {
     }
 
     render() {
-        return (<div>
+        return (<div className="main-container">
             <label for="date">Choose a date: </label>
             <input type="datetime-local" id="select-date" onChange={ this.onChange }/>
 
