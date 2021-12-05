@@ -2,12 +2,17 @@ import React from "react";
 import { useParams } from "react-router";
 
 import '../css/ScreeningDetails.css';
+import '../css/purchase.css';
 
 function PurchaseDetails(props)
 {
-    return (<div>
-        <p>Dziękujemy za zakup biletów!</p>
-        <p>Siedzenia które wybrałeś: </p>
+    return (
+    <div className="card">
+        <div className="checkmark-container">
+            <i className="checkmark">✓</i>
+        </div>
+        <h1>Success</h1> 
+        <p>Thanks for buying tickets in our Cinema<br/> Your reserved seats: </p>
         <p>{props.seats.join(', ')}</p>
     </div>);
 }

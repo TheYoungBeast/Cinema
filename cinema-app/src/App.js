@@ -1,4 +1,5 @@
 import './css/App.css';
+import './css/menubar.css';
 
 import React from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
@@ -82,12 +83,16 @@ class App extends React.Component
       const state = this.props.CinemaReducer
 
       return state ? ( 
-        <div id="mainPanel">
-          <Link to="/"><button>Home</button></Link>
-          <Link to = "/movies" >< button > Movies </button></Link >
-          <Link to = "/screenings" >< button > Screenings </button></Link >
-          <Link to="/rooms"><button> Rooms </button></Link>
-          <Link to="/trending"><button> Trending Screenings </button></Link>
+        <div>
+          <div className="menu-bar-container">
+          <ul className="menu-bar">
+            <Link to="/"><li>Home</li></Link>
+            <Link to = "/movies" ><li>Movies</li></Link >
+            <Link to = "/screenings" ><li>Screenings</li></Link >
+            <Link to="/rooms"><li>Rooms</li></Link>
+            <Link to="/trending"><li>Trending Screenings</li></Link>
+          </ul>
+          </div>
 
           <Routes>
             <Route path="/" element={<div>Main</div>} />
