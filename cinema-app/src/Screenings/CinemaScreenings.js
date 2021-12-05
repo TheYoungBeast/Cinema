@@ -58,6 +58,7 @@ class CinemaScreenings extends React.Component {
                         </ul>
                     </li>)
                 }
+               else return null;
             })
                 
         }
@@ -75,7 +76,9 @@ class CinemaScreenings extends React.Component {
                             <li key={element.screeningsMoviesId+"li-room"}>{element.roomId}</li>
                             <li key={element.screeningsMoviesId+"li-occupation"}>{element.occupation.map((seat) => {return (`${seat}, `)})}</li>
                         </ul>
-                    </li>)})
+                    </li>)
+                else return null;
+            });
         
         }
     }
