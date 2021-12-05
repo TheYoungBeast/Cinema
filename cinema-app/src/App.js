@@ -69,7 +69,7 @@ class App extends React.Component
       let screening = Object.assign({}, editedScreening);
       let { id } = screening;
       delete screening.id;
-
+      
       this.props.editScreening(screening, id);
     }
 
@@ -101,7 +101,7 @@ class App extends React.Component
             </Route>
 
             <Route path="screenings">
-              <Route path="" element={<CinemaScreenings screenings={ state.screenings } /> }/>
+              <Route path="" element={<CinemaScreenings screenings={ state.screenings }  /> }/>
               <Route path="add" element={<AddScreening addScreening={ this.addScreening } />} />
               <Route path=":id">
                 <Route path="" element={<ScreeningDetails { ...state } editScreening={ this.editScreening } /> }/>
