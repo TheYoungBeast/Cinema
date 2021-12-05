@@ -18,10 +18,11 @@ class ScreeningDetails extends React.Component
     {
         super(props);
         const { id } = props.params;
+        const { roomId } = props.screenings[id];
 
         const maxRowNo = 7;
         let bestRowNo = 0;
-        let bestRestModulo = props.rooms[id].capacity % maxRowNo;
+        let bestRestModulo = props.rooms[roomId].capacity % maxRowNo;
         for(let i = 4; i <= maxRowNo; i++ )
         {
             let modulo = props.rooms[id].capacity % i;
