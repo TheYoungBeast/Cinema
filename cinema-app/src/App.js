@@ -122,7 +122,7 @@ class App extends React.Component
               </Route>
             </Route>
 
-            <Route path="/trending" element={<TrendingScreenings screenings={ state.screenings } />} />
+            <Route path="/trending" element={<TrendingScreenings screenings={ state.screenings } movies={ state.movies } />} />
 
             <Route path="*" element = {< PageNotFound />}/> 
           </Routes>

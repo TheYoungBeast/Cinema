@@ -137,6 +137,7 @@ class ScreeningDetails extends React.Component
                 }
                 </div>
             </div>
+            
             {this.state.selectedSeats.length ? (<button onClick={ this.onBuyTickets }>Buy tickets</button>) : (<button disabled>Buy tickets</button>)}
         </div>);
     }
