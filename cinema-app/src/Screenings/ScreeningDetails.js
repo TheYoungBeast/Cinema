@@ -102,7 +102,7 @@ class ScreeningDetails extends React.Component
         seatsInRow.fill(undefined);
         
         return this.state.purchased ? <PurchaseDetails seats={this.state.selectedSeats} /> : 
-        (<div>
+        (<div className="main-container">
             <ul>
                 <li>Title: {this.state.movie.title}</li>
                 <li>Duration: {this.state.movie.duration}</li>

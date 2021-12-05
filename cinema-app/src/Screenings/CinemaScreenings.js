@@ -86,16 +86,14 @@ class CinemaScreenings extends React.Component {
     render()
     {
         return (
-            <div id="screening-list">
+            <div className="main-container" id="screening-list">
                 <h3>Screenings:</h3>
                 <button id="currentlyPlayingScreeningsButton" onClick={this.showCurrentScreenings}>Current screenings</button>
-                <span> 
+                <div key="search-screenings"> 
                     Search for a screening: <input type="date" id="keyword" placeholder="Search by date..." onChange={ this.onChange } /> 
-                </span> 
+                </div> 
                 <ol>
-                    {   
-                        this.renderList() 
-                    }
+                    { this.renderList() }
                 </ol>
                 <Link to={'/screenings/add'}><button>Add Screening</button></Link>
             </div>

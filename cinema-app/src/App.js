@@ -85,13 +85,13 @@ class App extends React.Component
       return state ? ( 
         <div>
           <div className="menu-bar-container">
-          <ul className="menu-bar">
-            <Link to="/"><li>Home</li></Link>
-            <Link to = "/movies" ><li>Movies</li></Link >
-            <Link to = "/screenings" ><li>Screenings</li></Link >
-            <Link to="/rooms"><li>Rooms</li></Link>
-            <Link to="/trending"><li>Trending Screenings</li></Link>
-          </ul>
+            <ul className="menu-bar">
+              <Link to="/"><li>Home</li></Link>
+              <Link to = "/movies" ><li>Movies</li></Link >
+              <Link to = "/screenings" ><li>Screenings</li></Link >
+              <Link to="/rooms"><li>Rooms</li></Link>
+              <Link to="/trending"><li>Trending Screenings</li></Link>
+            </ul>
           </div>
 
           <Routes>
