@@ -37,49 +37,49 @@ class CinemaScreenings extends React.Component {
         let year = currentDate.getFullYear();
         let hour = currentDate.getHours();
         let minutes = currentDate.getMinutes();
+        let list = [];
 
         if(this.state.shown) {
             var keyword1 = day + '.' + month + '.' + year;  //checks if current day
-            var keyword2 = Number(hour + minutes/60);               //checks if current hour
-            return this.props.screenings.map((element, index) => {
+            var keyword2 = Number(hour + minutes/60);              //checks if current hour
+            
+            list = this.props.screenings.filter((element) => {
                 let movieDuration = Number(this.props.movies[element.movieId].duration);    //movie duration in minutes
                 let screeningHour = Number(element.hours.split(':')[0]);    // starting hour of screening
                 let screeningTime = (screeningHour + movieDuration/60 + (movieDuration%60)/60); //ending time of screening 
 
                 if(element.date.includes(keyword1) && keyword2 - screeningTime < 0) {
-                    return(
-                        <li key={index}>
-                        <ul>
-                            <Link to={"./"+index}><li key={element.screeningsMoviesId+"li-date"}>Screening date: {element.date}</li></Link>
-                            <li key={element.screeningsMoviesId+"li-hour"}>{element.hours}</li>
-                            <li key={element.screeningsMoviesId+"li-id"}>{element.movieId}</li>
-                            <li key={element.screeningsMoviesId+"li-room"}>{element.roomId}</li>
-                            <li key={element.screeningsMoviesId+"li-occupation"}>{element.occupation.map((seat) => {return (`${seat}, `)})}</li>
-                        </ul>
-                    </li>)
+                    return element;
                 }
-               else return null;
             })
                 
         }
         else {
             var keyword = this.state.keyword;
-            return this.props.screenings.map((element, index) => {
+            list = this.props.screenings.map((element, index) => {
                 let inputData = this.dateConverter(keyword);
-                if(element.date.includes(inputData))
-                return(
-                    <li key={index}>
-                        <ul>
-                            <Link to={"./"+index}><li key={element.screeningsMoviesId+"li-date"}>Screening date: {element.date}</li></Link>
-                            <li key={element.screeningsMoviesId+"li-hour"}>{element.hours}</li>
-                            <li key={element.screeningsMoviesId+"li-id"}>{element.movieId}</li>
-                            <li key={element.screeningsMoviesId+"li-room"}>{element.roomId}</li>
-                            <li key={element.screeningsMoviesId+"li-occupation"}>{element.occupation.map((seat) => {return (`${seat}, `)})}</li>
-                        </ul>
-                    </li>)
-                else return null;
+                if(element.date.includes(inputData)) {
+                    return element;
+                }
             });
-        
+        }
+        if(list.length != 0) { 
+            return(
+                    list.map((element, index) => {
+                        return(
+                            <li key={index}>
+                                <ul>
+                                <Link to={"./"+index}><li key={element.screeningsMoviesId+"li-date"}>Screening date: {element.date}</li></Link>
+                                    <li key={element.screeningsMoviesId+"li-hour"}>{element.hours}</li>
+                                    <li key={element.screeningsMoviesId+"li-id"}>{element.movieId}</li>
+                                    <li key={element.screeningsMoviesId+"li-room"}>{element.roomId}</li>
+                                    <li key={element.screeningsMoviesId+"li-occupation"}>{element.occupation.map((seat) => {return (`${seat}, `)})}</li>
+                                </ul>
+                    </li>)}) 
+            )
+        }
+        else {
+            return(<div><p>There aren't any current screenings</p></div>)
         }
     }
 
