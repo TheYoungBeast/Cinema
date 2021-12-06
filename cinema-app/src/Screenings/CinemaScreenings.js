@@ -2,6 +2,8 @@ import '../css/CinemaScreenings.css';
 
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from 'prop-types'
+
 
 class CinemaScreenings extends React.Component {
     constructor(props) {
@@ -114,6 +116,12 @@ class CinemaScreenings extends React.Component {
             </div>
         );
     }
+}
+
+CinemaScreenings.propTypes = { 
+    rooms: PropTypes.array.isRequired,
+    movies: PropTypes.array.isRequired,
+    screenings: propTypes.array.isRequired
 }
 
 export default CinemaScreenings;

@@ -1,5 +1,7 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router";
+import PropTypes from 'prop-types'
+
 
 class EditScreening extends React.Component {
     constructor(props)
@@ -102,6 +104,13 @@ class EditScreening extends React.Component {
             </div>
         </div>) : null;
     }
+}
+
+EditScreening.propTypes = {
+    editScreening: PropTypes.func.isRequired,
+    movies: PropTypes.array.isRequired,
+    screenings: PropTypes.array.isRequired,
+    rooms: PropTypes.array.isRequired,
 }
 
 const EditScreeningWrapper = (props) => (<EditScreening {...props} params={useParams()} navigate={useNavigate()} />)
