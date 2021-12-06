@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 
 import '../css/ScreeningDetails.css';
 import '../css/Purchase.css';
@@ -109,6 +110,7 @@ class ScreeningDetails extends React.Component
                 <li>{this.state.screening.date} {this.state.screening.hours}</li>
                 <li>Room No: {this.state.room.roomNumber}</li>
                 <li>Ticekts left: {this.state.room.capacity-this.state.screening.occupation.length}</li>
+                <Link to={'./edit'}>Edit</Link>
             </ul>
 
             <div className="theatre" onClick={ this.onSeatSelected }>
