@@ -68,11 +68,11 @@ class AddRoom extends React.Component
                         <input className="input-field" id="input-room-capacity" type="number" min="10" onChange={ this.onChange } value={ this.state.capacity.toString() } />
                         <label className="input-label">Room Capacity</label>
                     </div>
-                    <div class="action">
+                    <div className="action">
                         <button className="action-button" onClick={ this.onClick }> Add Room </button>
                     </div>
                 </form>
-                <div class="card-info">
+                <div className="card-info">
                     Room number always contains 3 digits
                 </div>
             </div>
