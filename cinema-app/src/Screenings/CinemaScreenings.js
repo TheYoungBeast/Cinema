@@ -1,3 +1,5 @@
+import '../css/CinemaScreenings.css';
+
 import React from "react";
 import { Link } from "react-router-dom";
 import AddScreening from "./AddScreening";
@@ -59,19 +61,42 @@ class CinemaScreenings extends React.Component {
             list = this.props.screenings.filter( element => element.date.includes(this.dateConverter(keyword)) );
         }
         if(list.length != 0) { 
-            return(
-                    list.map((element, index) => {
-                        return(
-                            <li key={index}>
-                                <ul>
-                                <Link to={"./"+index}><li key={element.screeningsMoviesId+"li-date"}>Screening date: {element.date}</li></Link>
-                                    <li key={element.screeningsMoviesId+"li-hour"}>{element.hours}</li>
-                                    <li key={element.screeningsMoviesId+"li-id"}>{element.movieId}</li>
-                                    <li key={element.screeningsMoviesId+"li-room"}>{element.roomId}</li>
-                                    <li key={element.screeningsMoviesId+"li-occupation"}>Tickets bought: {element.occupation.length > 0 ? element.occupation.map((seat) => {return (`${seat}, `)}) : "All tickets available!"}</li>
-                                </ul>
-                    </li>)}) 
-            )
+            return(<table className="table-screenings">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th>Title</th>
+                        <th>Time</th>
+                        <th>Date</th>
+                        <th>Room</th>
+                        <th></th>
+                    </tr>
+                    {
+                        list.map((screening, index) => {
+                            console.log(screening);
+                            return(
+                                <tr key={`screening-tr-${index}`}>
+                                    <td><img style={{height: "150px", width: "auto"}} src={this.props.movies[screening.movieId].image} /></td>
+                                    <td>{this.props.movies[screening.movieId].title}</td>
+                                    <td>{screening.hours}</td>
+                                    <td>{screening.date}</td>
+                                    <td>{this.props.rooms[screening.roomId].roomNumber}</td>
+                                    <td>see more</td>
+                                </tr>
+                                /*<li key={index}>
+                                    <ul>
+                                    <Link to={"./"+index}><li key={element.screeningsMoviesId+"li-date"}>Screening date: {element.date}</li></Link>
+                                        <li key={element.screeningsMoviesId+"li-hour"}>{element.hours}</li>
+                                        <li key={element.screeningsMoviesId+"li-id"}>{element.movieId}</li>
+                                        <li key={element.screeningsMoviesId+"li-room"}>{element.roomId}</li>
+                                        <li key={element.screeningsMoviesId+"li-occupation"}>Tickets bought: {element.occupation.length > 0 ? element.occupation.map((seat) => {return (`${seat}, `)}) : "All tickets available!"}</li>
+                                    </ul>
+                        </li>*/
+                                );
+                        })
+                    }
+                </tbody>
+                </table>);
         }
         else {
             return(<div><p>There aren't any current screenings</p></div>)
