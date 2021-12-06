@@ -124,7 +124,7 @@ class AddScreening extends React.Component
                             <label className="input-label">Select Movie</label>
                         </div>
                         <div className="input">
-                            <input className="input-field" type="date" id="select-date" onChange={ this.onChange } /*value={new Date().toISOString().slice(0, 10)}*/ required/>
+                            <input className="input-field" type="date" id="select-date" min={new Date().toISOString().slice(0,10)} onChange={ this.onChange } /*value={new Date().toISOString().slice(0, 10)}*/ required/>
                             <label>Set Date</label>
                         </div>
                         <div className="input">

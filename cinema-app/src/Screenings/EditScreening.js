@@ -95,7 +95,7 @@ class EditScreening extends React.Component {
                         <label className="input-label">Room</label>
                     </div>
                     <div className="input">
-                        <input type="date" className="input-field" onChange={this.onChange} id="select-date" />
+                        <input type="date" className="input-field" onChange={this.onChange} min={new Date().toISOString().slice(0,10)} id="select-date" />
                         <label className="input-label">Set Date</label>
                     </div>
                     <div className="input">
