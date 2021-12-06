@@ -1,3 +1,5 @@
+import '../css/AddMovie.css';
+
 import React from "react";
 import { useNavigate } from "react-router";
 
@@ -67,15 +69,45 @@ class AddMovie extends React.Component
 
     render()
     {
-        return (<div>
-            <input type="text" id="input-movie-title" placeholder="Movie title" onChange={ this.onChange } />
-            <input type="text" id="input-movie-desc" placeholder="Description" onChange={ this.onChange } />
-            <input type="text" id="input-movie-dur" placeholder="Duration (minutes)" onChange={ this.onChange } />
-            <input type="text" id="input-movie-image" placeholder="Img link" onChange={ this.onChange } />
-            <input type="text" id="input-movie-trailer" placeholder="Trailer (video) link" onChange={ this.onChange } />
-
-            <button onClick={ this.onClick }> Add Movie </button>
-        </div>)
+        return (
+        <div className="container main-container">
+            <div className="card-add-movie">
+                <div className="card-image">	
+                    <h2 className="card-heading">
+                        Add Movie
+                        <small>Add new interesting movie</small>
+                    </h2>
+                </div>
+                <form className="card-form">
+                    <div className="input">
+                        <input type="text" className="input-field" id="input-movie-title" onChange={ this.onChange } required/>
+                        <label className="input-label">Title</label>
+                    </div>
+                    <div className="input">
+                        <input type="text" className="input-field" id="input-movie-desc" onChange={ this.onChange } required/>
+                        <label className="input-label">Description</label>
+                    </div>
+                    <div className="input">
+                        <input type="text" className="input-field" id="input-movie-dur" onChange={ this.onChange } required/>
+                        <label className="input-label">Duration (minutes)</label>
+                    </div>
+                    <div className="input">
+                        <input type="text" className="input-field" id="input-movie-image" onChange={ this.onChange } required/>
+                        <label className="input-label">Image link</label>
+                    </div>
+                    <div className="input">
+                        <input type="text" className="input-field" id="input-movie-trailer" onChange={ this.onChange } required/>
+                        <label className="input-label">Video link / Trailer</label>
+                    </div>
+                    <div class="action">
+                        <button className="action-button" onClick={ this.onClick }> Add Movie </button>
+                    </div>
+                </form>
+                <div class="card-info">
+                    Don't forget to add image link and trailer link
+                </div>
+            </div>
+        </div>);
     }
 }
 

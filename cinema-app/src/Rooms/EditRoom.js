@@ -53,7 +53,7 @@ class EditRoom extends React.Component
 
     render()
     {
-        return (<div>
+        return (<div className="main-container">
                 <label>Room Number</label>
                 <input id="input-room-number" type="number" min="1" onChange={ this.onChange } value={ this.state.roomNumber.toString() } />
                 <label>Room Capacity</label>

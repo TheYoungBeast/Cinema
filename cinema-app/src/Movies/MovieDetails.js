@@ -7,7 +7,7 @@ function MovieDetails(props) {
     const { pathname } = useLocation();
     
     return props.movies[id] ? 
-        (<div>
+        (<div className="main-container">
             <h3>Movie Details: </h3>
             <ul>
                 <li>Name: {props.movies[id].title}</li>

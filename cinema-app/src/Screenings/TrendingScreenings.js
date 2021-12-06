@@ -23,12 +23,14 @@ function TrendingScreenings(props)
     .map( ([key, val]) => [parseInt(key), val] );
 
     return (<div className="main-container">
+        <div key="trending-list">
         {
             rank.map( entry => {
                 const id = parseInt(entry[0]);
                 const title = props.movies[id].title;
                 return <div key={`${title}-${id}`}>{title} {entry[1]} tickets</div>; })
         }
+        </div>
     </div>);
 }
 
