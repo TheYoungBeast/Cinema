@@ -1,5 +1,5 @@
 import './css/App.css';
-import './css/menubar.css';
+import './css/Menubar.css';
 
 import React from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
@@ -108,7 +108,7 @@ class App extends React.Component
             </Route>
 
             <Route path="screenings">
-              <Route path="" element={<CinemaScreenings screenings={ state.screenings } movies={ state.movies } /> }/>
+              <Route path="" element={<CinemaScreenings {...state} /> }/>
               <Route path="add" element={<AddScreening screenings={ state.screenings } rooms={ state.rooms } movies={ state.movies } addScreening={ this.addScreening } />} />
               <Route path=":id">
                 <Route path="" element={<ScreeningDetails { ...state } editScreening={ this.editScreening } /> }/>
