@@ -99,7 +99,7 @@ class AddMovie extends React.Component
                         <input type="text" className="input-field" id="input-movie-trailer" onChange={ this.onChange } required/>
                         <label className="input-label">Video link / Trailer</label>
                     </div>
-                    <div class="action">
+                    <div className="action">
                         <button className="action-button" onClick={ this.onClick }> Add Movie </button>
                     </div>
                 </form>

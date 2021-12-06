@@ -56,12 +56,7 @@ class CinemaScreenings extends React.Component {
         }
         else {
             var keyword = this.state.keyword;
-            list = this.props.screenings.map((element, index) => {
-                let inputData = this.dateConverter(keyword);
-                if(element.date.includes(inputData)) {
-                    return element;
-                }
-            });
+            list = this.props.screenings.filter( element => element.date.includes(this.dateConverter(keyword)) );
         }
         if(list.length != 0) { 
             return(

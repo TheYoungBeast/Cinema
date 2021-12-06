@@ -14,9 +14,11 @@ function RemoveRoom(props)
 
     const onNoClick = () => navigate('../../' + id);
 
-    return (<div>
-        <p>Would you like to remove: {props.rooms[id].roomNumber} ?</p>
-        <button onClick={ onYesClick }>Yes</button> | <button onClick={ onNoClick }>No</button>
+    return (<div className="main-container">
+        <div>
+            <p>Would you like to remove: {props.rooms[id].roomNumber} ?</p>
+            <button onClick={ onYesClick }>Yes</button> | <button onClick={ onNoClick }>No</button>
+        </div>
     </div>);
 }
 
