@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 class CinemaMovies extends React.Component {
     constructor(props) {
@@ -42,6 +43,14 @@ class CinemaMovies extends React.Component {
             </div>
         )
     }
+}
+
+CinemaMovies.propTypes = {
+    data: PropTypes.shape({
+        movies: PropTypes.array.isRequired,
+        screenings: PropTypes.array.isRequired,
+        rooms: PropTypes.array.isRequired
+    })
 }
 
 export default CinemaMovies;

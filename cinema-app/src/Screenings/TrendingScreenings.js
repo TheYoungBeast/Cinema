@@ -26,14 +26,14 @@ function TrendingScreenings(props)
     .map( ([key, val]) => [parseInt(key), val] );
 
     return (<div className="main-container">
-        <div class="container-table">
+        <div className="container-table">
             <h2>Trending Movies</h2>
-            <ul class="responsive-table">
-                <li class="table-header">
-                    <div class="col col-1">rank</div>
-                    <div class="col col-2">name</div>
-                    <div class="col col-3">popularity</div>
-                    <div class="col col-4">details</div>
+            <ul className="responsive-table">
+                <li className="table-header">
+                    <div className="col col-1">rank</div>
+                    <div className="col col-2">name</div>
+                    <div className="col col-3">popularity</div>
+                    <div className="col col-4">details</div>
                 </li>
                 { 
                     rank.map( (entry, i) => {
@@ -47,11 +47,11 @@ function TrendingScreenings(props)
                         let award = rank <=3 ? awards[rank-1] : null;
 
                         return (
-                            <li class="table-row">
-                                <div class="col col-1" data-label="Rank">{award ? award : rank}</div>
-                                <div class="col col-2" data-label="Name">{title}</div>
-                                <div class="col col-3" data-label="Amount">{entry[1]}</div>
-                                <div class="col col-4" data-label="Details"><Link to={`/movies/${id}`}>see more</Link></div>
+                            <li className="table-row">
+                                <div className="col col-1" data-label="Rank">{award ? award : rank}</div>
+                                <div className="col col-2" data-label="Name">{title}</div>
+                                <div className="col col-3" data-label="Amount">{entry[1]}</div>
+                                <div className="col col-4" data-label="Details"><Link to={`/movies/${id}`}>see more</Link></div>
                             </li>);
                         })
                 }

@@ -2,6 +2,7 @@ import '../css/AddMovie.css';
 
 import React from "react";
 import { useNavigate } from "react-router";
+import PropTypes from 'prop-types';
 
 class AddMovie extends React.Component
 {
@@ -109,6 +110,10 @@ class AddMovie extends React.Component
             </div>
         </div>);
     }
+}
+
+AddMovie.propTypes = {
+    addMovie: PropTypes.func.isRequired
 }
 
 const AddMovieHelper = (props) => (<AddMovie {...props} navigate={useNavigate()} />);
