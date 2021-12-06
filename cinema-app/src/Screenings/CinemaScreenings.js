@@ -69,7 +69,7 @@ class CinemaScreenings extends React.Component {
                         <th>Time</th>
                         <th>Date</th>
                         <th>Room</th>
-                        <th></th>
+                        <th>Details</th>
                     </tr>
                     {
                         list.map((screening, index) => {
@@ -81,7 +81,7 @@ class CinemaScreenings extends React.Component {
                                     <td>{screening.hours}</td>
                                     <td>{screening.date}</td>
                                     <td>{this.props.rooms[screening.roomId].roomNumber}</td>
-                                    <td>see more</td>
+                                    <td><Link to={"./"+index}>see more</Link></td>
                                 </tr>
                                 /*<li key={index}>
                                     <ul>
