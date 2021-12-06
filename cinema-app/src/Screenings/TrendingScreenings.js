@@ -15,7 +15,7 @@ const date_now = () => {
 function TrendingScreenings(props)
 {
     date_now();
-    
+
     let tickets = props.screenings.reduce( (dict, key) => {
         dict[ key.movieId ] = (dict[ key.movieId ] ?? 0) + key.occupation.length;
         return dict;
@@ -48,10 +48,10 @@ function TrendingScreenings(props)
 
                         return (
                             <li class="table-row">
-                                <div class="col col-1" data-label="rank">{award ? award : rank}</div>
-                                <div class="col col-2" data-label="name">{title}</div>
+                                <div class="col col-1" data-label="Rank">{award ? award : rank}</div>
+                                <div class="col col-2" data-label="Name">{title}</div>
                                 <div class="col col-3" data-label="Amount">{entry[1]}</div>
-                                <div class="col col-4" data-label="Payment Status"><Link to={`/movies/${id}`}>see more</Link></div>
+                                <div class="col col-4" data-label="Details"><Link to={`/movies/${id}`}>see more</Link></div>
                             </li>);
                         })
                 }
