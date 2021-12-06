@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import PropTypes from 'prop-types';
 
 class CinemaRooms extends React.Component {
     constructor(props) {
@@ -48,6 +48,10 @@ class CinemaRooms extends React.Component {
                 <Link to={'/rooms/add'}><button>Add Room</button></Link>
             </div>);
     }
+}
+
+CinemaRooms.propTypes = {
+    rooms: PropTypes.array.isRequired
 }
 
 export default CinemaRooms;

@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router";
+import PropTypes from 'prop-types';
 
 function RemoveRoom(props)
 {
@@ -20,6 +21,11 @@ function RemoveRoom(props)
             <button onClick={ onYesClick }>Yes</button> | <button onClick={ onNoClick }>No</button>
         </div>
     </div>);
+}
+
+RemoveRoom.propTypes = {
+    removeRoom: PropTypes.func.isRequired,
+    rooms: PropTypes.array.isRequired
 }
 
 export default RemoveRoom;

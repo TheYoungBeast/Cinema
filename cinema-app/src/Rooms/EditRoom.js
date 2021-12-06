@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router";
+import PropTypes from 'prop-types';
 
 class EditRoom extends React.Component
 {
@@ -62,6 +63,11 @@ class EditRoom extends React.Component
                 <button onClick={ this.onClick }>Edit</button>
             </div>);
     }
+}
+
+EditRoom.propTypes = {
+    editRoom: PropTypes.func.isRequired,
+    rooms: PropTypes.array.isRequired
 }
 
 const EditRoomHelper = (props) => (<EditRoom {...props} params={useParams()} navigate={useNavigate()} />);

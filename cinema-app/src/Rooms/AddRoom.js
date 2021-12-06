@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router";
+import PropTypes from 'prop-types';
 
 class AddRoom extends React.Component
 {
@@ -78,6 +79,10 @@ class AddRoom extends React.Component
             </div>
         </div>);
     }
+}
+
+AddRoom.propTypes = {
+    addRoom: PropTypes.func.isRequired
 }
 
 const AddRoomHelper = (props) => (<AddRoom {...props} navigate={useNavigate()} />);
