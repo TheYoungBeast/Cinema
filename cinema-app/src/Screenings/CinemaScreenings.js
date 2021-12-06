@@ -45,8 +45,8 @@ class CinemaScreenings extends React.Component {
             
             list = this.props.screenings.filter((element) => {
                 let movieDuration = Number(this.props.movies[element.movieId].duration);    //movie duration in minutes
-                let screeningHour = Number(element.hours.split(':')[0]);    // starting hour of screening
-                let screeningTime = (screeningHour + movieDuration/60 + (movieDuration%60)/60); //ending time of screening 
+                let screeningHour = Number(element.hours.split(':')[0] + element.hours.split(':')[1]/60);    // starting hour of screening
+                let screeningTime = Number(screeningHour) + Number(movieDuration/60); //ending time of screening 
 
                 if(element.date.includes(keyword1) && keyword2 - screeningTime < 0) {
                     return element;
