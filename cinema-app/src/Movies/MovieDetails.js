@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams, useLocation } from "react-router";
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 function MovieDetails(props) {
     const id = useParams().id;
@@ -23,6 +24,10 @@ function MovieDetails(props) {
                 <Link to={pathname+"/edit"}><button>Edit</button></Link> | <Link to={pathname+"/remove"}><button>Remove</button></Link>
             </span>
         </div>) : null;
+}
+
+MovieDetails.propTypes = {
+    movies: PropTypes.array.isRequired
 }
 
 export default MovieDetails;
