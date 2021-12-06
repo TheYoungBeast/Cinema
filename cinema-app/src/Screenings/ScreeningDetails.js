@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import PropTypes from 'prop-types'
 
 import '../css/ScreeningDetails.css';
 import '../css/Purchase.css';
@@ -153,6 +154,13 @@ class ScreeningDetails extends React.Component
             }
         </div>);
     }
+}
+
+ScreeningDetails.propTypes = {
+    editScreening: PropTypes.func.isRequired,
+    rooms: PropTypes.array.isRequired,
+    movies: PropTypes.array.isRequired,
+    screenings: PropTypes.array.isRequired,
 }
 
 const ScreeningDetailsHelper = (props) => (<ScreeningDetails {...props} params={useParams()} />);

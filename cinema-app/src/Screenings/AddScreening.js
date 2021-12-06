@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router";
+import PropTypes from 'prop-types'
 
 const stringToDate = (string) => {
     let date = new Date();
@@ -147,6 +148,13 @@ class AddScreening extends React.Component
                 </div>
             </div>);
     }
+}
+
+AddScreening.propTypes = { 
+    rooms: PropTypes.array.isRequired,
+    movies: PropTypes.array.isRequired,
+    screenings: PropTypes.array.isRequired,
+    addScreening: PropTypes.func.isRequired
 }
 
 const AddScreeningHelper = (props) => (<AddScreening {...props} params={useParams()} navigate={useNavigate()} />);

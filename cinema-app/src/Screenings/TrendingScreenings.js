@@ -2,6 +2,8 @@ import '../css/Trending.css';
 
 import React from "react";
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types'
+
 
 const date_now = () => {
     let today = new Date();
@@ -65,6 +67,11 @@ function TrendingScreenings(props)
         }
         </div>
     );
+}
+
+TrendingScreenings.propTypes = {
+    screenings: PropTypes.array.isRequired,
+    movies: PropTypes.array.isRequired,
 }
 
 export default TrendingScreenings;
