@@ -69,7 +69,6 @@ class AddScreening extends React.Component
             case 'select-room':
                 value = parseInt(value);
                 key='roomId'
-                console.log(value);
                 break;
             default:
                 console.log(`Unhandled case: ${event.target}`);
