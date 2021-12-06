@@ -26,7 +26,7 @@ i {
 }
 .card {
     text-align: center;
-    background:rgba(255, 255, 255, 0.9);
+    background:rgba(255, 255, 255, 0.95);
     padding: 60px;
     border-radius: 4px;
     box-shadow: 0 2px 3px #C8D0D8;
