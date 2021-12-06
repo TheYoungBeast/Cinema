@@ -112,7 +112,7 @@ class App extends React.Component
               <Route path="add" element={<AddScreening {...state} addScreening={ this.addScreening } />} />
               <Route path=":id">
                 <Route path="" element={<ScreeningDetails { ...state } editScreening={ this.editScreening } /> }/>
-                <Route path="edit" element={<EditScreening editScreening={ this.editScreening } movies={ state.movies} screenings={ state.screenings} rooms={ state.rooms }/> } />
+                <Route path="edit" element={<EditScreening { ...state } editScreening={ this.editScreening }/> } />
                 <Route path="remove" element={<RemoveScreening removeScreening={ this.removeScreening } screenings = { state.screenings} /> } />
               </Route>
             </Route>
