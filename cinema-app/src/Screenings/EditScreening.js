@@ -79,7 +79,7 @@ class EditScreening extends React.Component {
                         <label className="input-label">Title</label>
                     </div>
                     <div className="input">
-                        <input type="text" className="input-field" onChange={this.onChange} id="input-movie-dur" value={this.state.duration.toString()} />
+                        <input type="text" className="input-field" onChange={this.onChange} id="input-movie-dur" value={this.state.duration} />
                         <label className="input-label">Duration</label>
                     </div>
                     <div className="input">

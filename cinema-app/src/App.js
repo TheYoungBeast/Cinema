@@ -119,7 +119,7 @@ class App extends React.Component
 
             <Route path="rooms">
               <Route path="" element={<CinemaRooms rooms={ state.rooms } />} />
-              <Route path="add" element={<AddRoom addRoom={ this.addRoom } />} />
+              <Route path="add" element={<AddRoom addRoom={ this.addRoom } rooms={ state.rooms} />} />
               <Route path=":id">
                 <Route path="" element={<RoomDetails rooms={ state.rooms } />} />
                 <Route path="edit" element={<EditRoom editRoom={ this.editRoom } rooms={ state.rooms } />} />

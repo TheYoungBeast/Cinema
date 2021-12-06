@@ -45,8 +45,13 @@ class AddRoom extends React.Component
 
     onClick = () => {
         let { addRoom } = this.props;
-        addRoom(this.state);
-        this.props.navigate('/rooms/');
+        if(this.props.rooms.find(element => element.roomNumber === this.state.roomNumber)) {
+            alert("Room already exists")
+        }
+        else {
+            addRoom(this.state);
+            this.props.navigate('/rooms/');
+        }
     }
 
     render()
@@ -82,7 +87,8 @@ class AddRoom extends React.Component
 }
 
 AddRoom.propTypes = {
-    addRoom: PropTypes.func.isRequired
+    addRoom: PropTypes.func.isRequired,
+    rooms: PropTypes.array.isRequired
 }
 
 const AddRoomHelper = (props) => (<AddRoom {...props} navigate={useNavigate()} />);

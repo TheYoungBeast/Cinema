@@ -25,7 +25,7 @@ class CinemaRooms extends React.Component {
                 <div key="room-list">
                     <h3>Room list:</h3>
                     <span> 
-                        Search for a room: <input type="number" id="keyword" placeholder="Search by number..." onChange={ this.onChange } /> 
+                        Search for a room: <input type="number" id="keyword" min="000" placeholder="Search by number..." onChange={ this.onChange } /> 
                     </span>
                     <ol>
                         { this.props.rooms.map((product, index) => {
