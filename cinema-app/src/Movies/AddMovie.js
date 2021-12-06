@@ -2,7 +2,6 @@ import '../css/AddMovie.css';
 
 import React from "react";
 import { useNavigate } from "react-router";
-import PropTypes from 'prop-types';
 
 class AddMovie extends React.Component
 {
@@ -113,7 +112,11 @@ class AddMovie extends React.Component
 }
 
 AddMovie.propTypes = {
-    addMovie: PropTypes.func.isRequired
+    addMovie: function(props, propName, p) {
+        let fn = props[propName];
+        if(typeof fn !== "function" || fn.length !== 1)
+            return new Error(`${propName} should be a function with exact 1 arg`);
+    }
 }
 
 const AddMovieHelper = (props) => (<AddMovie {...props} navigate={useNavigate()} />);
