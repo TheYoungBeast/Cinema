@@ -34,7 +34,7 @@ function CinemaReducer(state = initState(), action)
 
         case actions.EDIT_MOVIE:
             nState = Object.assign({}, state);
-            nState.movies[action.id] = action.room;
+            nState.movies[action.id] = action.movie;
             return nState;
 
         case actions.EDIT_ROOM:
