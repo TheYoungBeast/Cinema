@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router";
 
 import '../css/ScreeningDetails.css';
-import '../css/purchase.css';
+import '../css/Purchase.css';
 
 function PurchaseDetails(props)
 {
@@ -145,7 +145,10 @@ class ScreeningDetails extends React.Component
                 </div>
             </div>
             
-            {this.state.selectedSeats.length ? (<button onClick={ this.onBuyTickets }>Buy tickets</button>) : (<button disabled>Buy tickets</button>)}
+            { this.state.selectedSeats.length ? 
+                (<button style={{maxWidth: "30%", margin: "auto auto"}} className="action-button" onClick={ this.onBuyTickets }>Buy tickets</button>) : 
+                (<p  style={{textAlign: "center"}}>Choose seats to buy tickets</p>)
+            }
         </div>);
     }
 }
