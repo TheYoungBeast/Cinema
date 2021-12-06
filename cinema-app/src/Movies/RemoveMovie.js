@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router";
+import PropTypes from 'prop-types';
 
 function RemoveMovie(props)
 {
@@ -20,6 +21,11 @@ function RemoveMovie(props)
             <button onClick={ onYesClick }>Yes</button> | <button onClick={ onNoClick }>No</button>
         </div>
     </div>);
+}
+
+RemoveMovie.propTypes = {
+    removeMovie: PropTypes.func.isRequired,
+    movies: PropTypes.array.isRequired
 }
 
 export default RemoveMovie;

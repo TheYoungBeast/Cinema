@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router";
+import PropTypes from 'prop-types';
 
 class EditMovie extends React.Component
 {
@@ -103,6 +104,11 @@ class EditMovie extends React.Component
             </div>
         </div>) : null;
     }
+}
+
+EditMovie.propTypes = {
+    editMovie: PropTypes.func.isRequired,
+    movies: PropTypes.array.isRequired
 }
 
 const EditMovieWrapper = (props) => (<EditMovie {...props} params={useParams()} navigate={useNavigate()} />)
