@@ -121,7 +121,7 @@ class CinemaScreenings extends React.Component {
 CinemaScreenings.propTypes = { 
     rooms: PropTypes.array.isRequired,
     movies: PropTypes.array.isRequired,
-    screenings: propTypes.array.isRequired
+    screenings: PropTypes.array.isRequired
 }
 
 export default CinemaScreenings;
