@@ -7,14 +7,16 @@ function RoomDetails(props) {
     const id = useParams().id;
     const { pathname } = useLocation();
 
-    return(<div>
-        <ul>
-            <li>Room Number: {props.rooms[id].roomNumber}</li>
-            <li>Room Capacity: {props.rooms[id].capacity}</li>
-        </ul>
+    return(<div className="main-container">
+        <div>
+            <ul>
+                <li>Room Number: {props.rooms[id].roomNumber}</li>
+                <li>Room Capacity: {props.rooms[id].capacity}</li>
+            </ul>
 
-        <Link to={pathname+'/edit'}><button>Edit</button></Link>
-        <Link to={pathname+'/remove'}><button>Remove</button> </Link>
+            <Link to={pathname+'/edit'}><button>Edit</button></Link>
+            <Link to={pathname+'/remove'}><button>Remove</button> </Link>
+        </div>
     </div>);
 }
 
