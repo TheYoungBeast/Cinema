@@ -1,20 +1,30 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router";
 
-class AddScreening extends React.Component {
-    constructor(props) {
+const stringToDate = (string) => {
+    let date = new Date();
+    date.setFullYear(string.slice(-4), string.slice(3, 5)-1, string.slice(0, 2));
+    date.setHours(0, 0, 0, 0);
+    return date;
+}
+
+const timeStringToMinutes = (time) => {
+    var hoursMinutes = time.split(/[.:]/);
+    var hours = parseInt(hoursMinutes[0], 10);
+    var minutes = hoursMinutes[1] ? parseInt(hoursMinutes[1], 10) : 0;
+    return hours*60 + minutes;
+}
+
+class AddScreening extends React.Component 
+{
+    constructor(props) 
+    {
         super(props);
         this.state = {
             movieId: 0,
-            roomId: 0,
+            roomId: -1,
             date: '',
             hours: '',
-            occupation: [],
-
-            screenings: this.props.screenings,
-            movies: this.props.movies,
-            rooms: this.props.rooms,
-            originalRooms: this.props.rooms,
         }
     }       
 
@@ -25,71 +35,52 @@ class AddScreening extends React.Component {
             roomId: this.state.roomId,
             date: this.state.date,
             hours: this.state.hours,
-            occupation: [],
+            occupation: []
         });
         this.props.navigate('/screenings/');
     }
 
     onClick = (event) => {
-        // tutaj mozna walidowac dane przed wysłaniem
-        this.add();
+        event.preventDefault();
+        if(this.state.date && this.state.hours && this.state.movieId > -1 && this.state.roomId > -1)
+            this.add();
+        else
+            alert("Fields cannot be empty")
     }
 
     onChange = (event) => {
         let key="";
         let value = event.target.value
         
-        
-        switch(event.target.id) {
+        switch(event.target.id) 
+        {
             case 'select-date':
                 key='date';
                 let tmpDate = value.split('T')[0].split('-');
-                var hour = value.split('T')[1];
-                value = tmpDate[2] + '.' + tmpDate [1] + '.' + tmpDate[0];
-                this.setState({
-                    rooms: this.state.originalRooms
-                })
-                
-                this.setState({
-                    rooms: this.state.rooms.filter((roomx, index) => {
-                        let check = this.state.screenings.find(screeningx => {
-                            let movie = this.state.movies[screeningx.movieId].duration;
-                            let screeningStartDate = new Date(screeningx.date.split('.')[2], screeningx.date.split('.')[1], screeningx.date.split('.')[0], screeningx.hours.split(':')[1], screeningx.hours.split(':')[0])
-                            let screeningFinishDate = new Date(screeningStartDate)
-                            let currentDate = new Date(value.split('.')[2], value.split('.')[1], value.split('.')[0], hour.split(':')[0], hour.split(':')[1])
-                            screeningFinishDate.setHours(screeningFinishDate.getHours() + Math.floor(movie/60))
-                            screeningFinishDate.setMinutes(screeningFinishDate.getMinutes() + movie%60)
-
-                            if(screeningStartDate <= currentDate && screeningFinishDate >= currentDate && screeningx.roomId === index) {
-                                return screeningx;
-                            }
-                        })
-                        if(check === undefined) {
-                            return roomx;
-                        }
-                    })
-                })
-                console.log(this.props.rooms)
+                value = tmpDate.reverse().join('.');
+                break;
+            case 'select-time':
+                key="hours";
                 break;
             case 'select-movie':
                 key='movieId';
+                value = parseInt(value);
                 break;
             case 'select-room':
+                value = parseInt(value);
                 key='roomId'
+                console.log(value);
                 break;
+            default:
+                console.log(`Unhandled case: ${event.target}`);
+                return;
         }
 
-
-        if(key === 'date') {
-            this.setState({
-                date: value,
-                hours: hour
-            })
-        }
-        else {
+        if(key)
+        {
             this.setState(prevState => {
                 let state = prevState;
-                state[key] = Number(value);
+                state[key] = value;
 
                 return {...state};
             });
@@ -97,35 +88,65 @@ class AddScreening extends React.Component {
     }
 
     render() {
-        return (<div className="main-container">
-            <label for="date">Choose a date: </label>
-            <input type="datetime-local" id="select-date" onChange={ this.onChange }/>
+            let unavailableRooms = Array.from(new Set(this.props.screenings.filter( screening => {
+                if(stringToDate(screening.date).valueOf() === stringToDate(this.state.date).valueOf())
+                {
+                    let newScreeningStart = timeStringToMinutes(this.state.hours);
+                    let newScreeningEnd = newScreeningStart + this.props.movies[this.state.movieId].duration;
+                    let oldScreeningStart = timeStringToMinutes( screening.hours );
+                    let oldScreeningEnd = oldScreeningStart + this.props.movies[screening.movieId].duration;
+                    
+                    let isOverlapping = (newScreeningStart >= oldScreeningStart && newScreeningStart <= oldScreeningEnd) || (newScreeningEnd >= oldScreeningStart && newScreeningEnd <= oldScreeningEnd);
+                    
+                    return isNaN(newScreeningStart) ? false : isOverlapping;
+                }
+                else return false;
+            }).map( screening => screening.roomId )));
 
-            <br/>
-            <label for="movies">Choose a movie: </label>
-            <select name="movies" id="select-movie" onChange={ this.onChange }>
-            {
-                this.state.movies.map((element, index) => {
-                    return (
-                        <option value={index}>{element.title}</option>
-                    )
-                })
-            }
-            </select>
-            <br/>
-            <label for="rooms">Choose a room: </label>
-            <select name="rooms" id="select-room" onChange={ this.onChange }>
-            {
-                this.state.rooms.map((element, index) => {
-                    return (
-                        <option value={index}>Room number: {element.roomNumber} (capacity: {element.capacity}</option>
-                    )
-                })
-            }
-            </select>
-            <br/>
-            <button onClick={ this.onClick }> Add Screening </button>
-        </div>)
+            let rooms = this.props.rooms.map( (r, i) => i );
+            let availableRooms = rooms.filter( (roomId) => !unavailableRooms.includes(roomId) ); 
+
+            return this.props.rooms && (
+            <div className="container main-container">
+                <div className="card-add-movie">
+                    <div className="card-image">	
+                        <h2 className="card-heading">
+                            Add Screening
+                            <small>Set up new screening!</small>
+                        </h2>
+                    </div>
+                    <form className="card-form" onSubmit={this.preve}>
+                        <div className="input">
+                            <select className="input-field" name="movies" id="select-movie" onChange={ this.onChange }>
+
+                                { this.props.movies.map( (movie, id) => (<option key={`movie-${id}`} value={id}>{movie.title}</option>) ) }
+                            </select>
+                            <label className="input-label">Select Movie</label>
+                        </div>
+                        <div className="input">
+                            <input className="input-field" type="date" id="select-date" onChange={ this.onChange } /*value={new Date().toISOString().slice(0, 10)}*/ required/>
+                            <label>Set Date</label>
+                        </div>
+                        <div className="input">
+                            <input className="input-field" type="time" id="select-time" min="06:00" max="23:00" onChange={ this.onChange } /*value={new Date().toISOString().slice(11, 16)}*/ required/>
+                            <label >Set Hour</label>
+                        </div>
+                        <div className="input">
+                            <select className="input-field" name="rooms" id='select-room' onChange={ this.onChange } >
+                                <option key="room-default" value={-1}>Select room</option>
+                                { availableRooms.map( id => (<option key={`room-${id}`} value={id}>{this.props.rooms[id].roomNumber}</option>) ) }
+                            </select>
+                            <label className="input-label">Select Room</label>
+                        </div>
+                        <div className="action">
+                            <button className="action-button" onClick={ this.onClick }>Add Screening</button>
+                        </div>
+                    </form>
+                    <div className="card-info">
+                        An empty room list means all rooms are occupied at a selected date/time
+                    </div>
+                </div>
+            </div>);
     }
 }
 

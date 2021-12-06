@@ -2,7 +2,6 @@ import '../css/CinemaScreenings.css';
 
 import React from "react";
 import { Link } from "react-router-dom";
-import AddScreening from "./AddScreening";
 
 class CinemaScreenings extends React.Component {
     constructor(props) {
@@ -50,17 +49,14 @@ class CinemaScreenings extends React.Component {
                 let screeningHour = Number(element.hours.split(':')[0] + element.hours.split(':')[1]/60);    // starting hour of screening
                 let screeningTime = Number(screeningHour) + Number(movieDuration/60); //ending time of screening 
 
-                if(element.date.includes(keyword1) && keyword2 - screeningTime < 0) {
-                    return element;
-                }
-            })
-                
+                return (element.date.includes(keyword1) && keyword2 - screeningTime < 0);
+            });
         }
         else {
             var keyword = this.state.keyword;
             list = this.props.screenings.filter( element => element.date.includes(this.dateConverter(keyword)) );
         }
-        if(list.length != 0) { 
+        if(list.length !== 0) { 
             return(<table className="table-screenings">
                 <tbody>
                     <tr>
@@ -73,10 +69,9 @@ class CinemaScreenings extends React.Component {
                     </tr>
                     {
                         list.map((screening, index) => {
-                            console.log(screening);
                             return(
                                 <tr key={`screening-tr-${index}`}>
-                                    <td><img style={{height: "150px", width: "auto"}} src={this.props.movies[screening.movieId].image} /></td>
+                                    <td><img style={{height: "150px", width: "auto"}} alt="" src={this.props.movies[screening.movieId].image} /></td>
                                     <td>{this.props.movies[screening.movieId].title}</td>
                                     <td>{screening.hours}</td>
                                     <td>{screening.date}</td>

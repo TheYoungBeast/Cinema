@@ -103,7 +103,7 @@ class AddMovie extends React.Component
                         <button className="action-button" onClick={ this.onClick }> Add Movie </button>
                     </div>
                 </form>
-                <div class="card-info">
+                <div className="card-info">
                     Don't forget to add image link and trailer link
                 </div>
             </div>
