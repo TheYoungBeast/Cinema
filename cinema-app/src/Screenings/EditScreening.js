@@ -10,10 +10,11 @@ class EditScreening extends React.Component {
         let id = props.params.id;
         let currentScreening = props.screenings[id]
         this.state = {
+            id: id,
             movieId: currentScreening.movieId,
             roomId: currentScreening.roomId,
-            date: currentScreening.date,
-            hours: currentScreening.hours,
+            date: "",
+            hours: "",
             occupation: currentScreening.occupation,
         };
     }
@@ -24,28 +25,28 @@ class EditScreening extends React.Component {
 
         switch(event.target.id)
         {
-            case 'input-movie-title':
-                key = "title";
+            case 'select-date':
+                key='date';
+                let tmpDate = value.split('T')[0].split('-');
+                value = tmpDate.reverse().join('.');
                 break;
-            case 'input-movie-desc':
-                key = "description"
+            case 'select-time':
+                key="hours";
                 break;
-            case 'input-movie-dur':
-                key = "duration"
-                value = parseInt(value) || 0;
+            case 'select-movie':
+                key='movieId';
+                value = parseInt(value);
                 break;
-            case 'input-movie-img':
-                key = "image";
-                break;
-            case 'input-movie-trailer':
-                key = "trailer";
+            case 'select-room':
+                value = parseInt(value);
+                key='roomId'
                 break;
             default:
                 console.error(`Unhandled case: ${event.target.id}`);
                 break;
         }
 
-        if(key.length)
+        if(key)
         {
             this.setState(prevState => {
                 let state = prevState;
@@ -56,10 +57,17 @@ class EditScreening extends React.Component {
         }
     }
 
-    onClick = () => {
+    onClick = (event) => {
+        event.preventDefault();
         let { editScreening } = this.props;
-        editScreening(this.state);
-        this.props.navigate('/screenings/'+this.state.movieId);
+
+        if(this.state.date && this.state.hours)
+        {
+            editScreening(this.state);
+            this.props.navigate('/screenings');
+        }
+        else
+            alert(`Fields cannot be emtpy`);
     }
 
     render()
@@ -75,31 +83,31 @@ class EditScreening extends React.Component {
                 </div>
                 <form className="card-form">
                     <div className="input">
-                        <input type="text" className="input-field" onChange={this.onChange} id="input-movie-title" value={this.state.title} />
-                        <label className="input-label">Title</label>
+                        <select className="input-field" name="movies" id="select-movie" onChange={ this.onChange }>
+                            { this.props.movies.map( (movie, id) => (<option key={`movie-${id}`} value={id}>{movie.title}</option>) ) }
+                        </select>
+                        <label className="input-label">Movie</label>
                     </div>
                     <div className="input">
-                        <input type="text" className="input-field" onChange={this.onChange} id="input-movie-dur" value={this.state.duration.toString()} />
-                        <label className="input-label">Duration</label>
+                        <select className="input-field" name="rooms" id='select-room' onChange={ this.onChange } >
+                            { this.props.rooms.map( (room, id) => (<option key={`room-${id}`} value={id}>{room.roomNumber}</option>) ) }
+                        </select>
+                        <label className="input-label">Room</label>
                     </div>
                     <div className="input">
-                        <input type="text" className="input-field" onChange={this.onChange} id="input-movie-desc" value={this.state.description} />
-                        <label className="input-label">Description</label>
+                        <input type="date" className="input-field" onChange={this.onChange} id="select-date" />
+                        <label className="input-label">Set Date</label>
                     </div>
                     <div className="input">
-                        <input type="text" className="input-field" onChange={this.onChange} id="input-movie-img" value={this.state.image} />
-                        <label className="input-label"> Image link</label>
-                    </div>
-                    <div className="input">
-                        <input type="text" className="input-field" onChange={this.onChange} id="input-movie-trailer" value={this.state.trailer} />
-                        <label className="input-label">Trailer link / Video </label>
+                        <input type="time" className="input-field" onChange={this.onChange} id="select-time" />
+                        <label className="input-label">Set hour</label>
                     </div>
                     <div className="action">
-                        <button className="action-button" onClick={ this.onClick }>Edit</button>
+                        <button className="action-button" onClick={ this.onClick }>Edit Screening</button>
                     </div>
                 </form>
                 <div className="card-info">
-                    Don't forget to add image link and trailer link
+                    Edit info
                 </div>
             </div>
         </div>) : null;
