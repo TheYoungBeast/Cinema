@@ -55,13 +55,31 @@ class EditRoom extends React.Component
     render()
     {
         return (<div className="main-container">
-                <label>Room Number</label>
-                <input id="input-room-number" type="number" min="1" onChange={ this.onChange } value={ this.state.roomNumber.toString() } />
-                <label>Room Capacity</label>
-                <input id="input-room-capacity" type="number" min="10" onChange={ this.onChange } value={ this.state.capacity.toString() } />
-
-                <button onClick={ this.onClick }>Edit</button>
-            </div>);
+             <div className="card-add-movie">
+                <div className="card-image">	
+                    <h2 className="card-heading">
+                        Edit Movie
+                        <small>Edit selected movie</small>
+                    </h2>
+                </div>
+                <form className="card-form">
+                    <div className="input">
+                        <input className="input-field" id="input-room-number" type="number" min="1" onChange={ this.onChange } value={ this.state.roomNumber.toString() } />
+                        <label className="input-label">Room Number</label>
+                    </div>
+                    <div className="input">
+                        <input className="input-field" id="input-room-capacity" type="number" min="10" onChange={ this.onChange } value={ this.state.capacity.toString() } />
+                        <label className="input-label">Room Capacity</label>
+                    </div>
+                    <div className="action">
+                        <button className="action-button" onClick={ this.onClick }>Edit</button>
+                    </div>
+                </form>
+                <div className="card-info">
+                    Room numbers always contain 3 digits
+                </div>
+            </div>
+        </div>);
     }
 }
 
