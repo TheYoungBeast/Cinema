@@ -7,15 +7,20 @@ import PropTypes from 'prop-types'
 class TrendingScreenings extends React.Component {
     constructor(props) { 
         super(props)
+
+        let popularAll = props.screenings.reduce( (dict, key) => {
+            let title = props.movies[ key.movieId ].title;
+            dict[ title ] = (dict[ title ] ?? 0) + key.occupation.length;
+            return dict;
+        }, {});
+
+        let initRanking = Object.entries(popularAll).sort( ([,a], [,b]) => b-a );
+
         this.state = {
             firstDate: '',
             secondDate: '',
-            ranking: [],
+            ranking: initRanking,
         }
-    }
-
-    compare = (a, b) => { 
-
     }
 
     onChange = (event) => { 
@@ -29,9 +34,6 @@ class TrendingScreenings extends React.Component {
     onClick = () => {
         let firstDate = new Date(this.state.firstDate.split('-')[0], this.state.firstDate.split('-')[1] - 1, this.state.firstDate.split('-')[2]);
         let secondDate = new Date(this.state.secondDate.split('-')[0], this.state.secondDate.split('-')[1] - 1, this.state.secondDate.split('-')[2]);
-
-       // console.log(firstDate)
-       // console.log(secondDate)
 
         let ranking = {}
         this.props.movies.forEach((movie, index) => {
@@ -57,16 +59,25 @@ class TrendingScreenings extends React.Component {
     }
     render() {
         return (<div className="main-container">
+             <div className="container-trending">
+                    <div className="input">
+                        
+                    </div>
+                    <div className="input ">
+                        <input className="input-field" type="date" id="firstDate"  max={new Date().toISOString().slice(0,10)} onChange={ this.onChange } />
+                        <label className="input-label">Start date:</label>
+                    </div>
+                    <div className="input">
+                        <input className="input-field" type="date" id="secondDate" max={new Date().toISOString().slice(0,10)} onChange={ this.onChange } />
+                        <label className="input-label">End date:</label>
+                    </div>
+
+                    <button className="action-button" onClick={ this.onClick }>Search</button>
+                </div>
             <div className="container-table">
-                <h2>Trending Movies</h2>
-                <span>
-                    <label for="firstDate">Start date: </label>
-                    <input type="date" id="firstDate" placeholder="Search by date..." onChange={ this.onChange } />
-                    <label for="seconDate">End date:</label>
-                    <input type="date" id="secondDate" placeholder="Search by date..." onChange={ this.onChange } />
-                </span>
-                <button className="action-button" onClick={ this.onClick }>Search</button>
-                <ul className="responsive-table">
+                
+                { this.state.ranking.length ? 
+                (<ul className="responsive-table">
                     <li className="table-header">
                         <div className="col col-1">rank</div>
                         <div className="col col-2">name</div>
@@ -89,7 +100,7 @@ class TrendingScreenings extends React.Component {
                                 </li>);
                         })
                     }
-                </ul>
+                </ul>) : null }
             </div>
         </div>
         );

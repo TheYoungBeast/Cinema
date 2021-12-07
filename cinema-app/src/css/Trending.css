@@ -6,6 +6,20 @@
 	margin-right: auto;
 }
 
+.container-trending
+{
+	display: inline-flex;
+	flex-basis: 100%;
+	justify-content: space-evenly;
+}
+
+.container-trending .action-button
+{
+	margin-top: auto;
+	width: 30%;
+	height: 60px;
+}
+
 .container-table h2 {
 	font-size: 26px;
 	margin: 20px 0;
