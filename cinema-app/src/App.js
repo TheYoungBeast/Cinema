@@ -76,8 +76,6 @@ class App extends React.Component
 
     render() {
       const state = this.props.CinemaReducer
-      console.log(state);
-
       return state ? ( 
         <div>
           <div className="menu-bar-container">
