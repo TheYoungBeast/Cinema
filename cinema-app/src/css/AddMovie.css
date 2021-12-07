@@ -9,6 +9,64 @@ input {
 	border-radius: 0;
 }
 
+.movie-container {
+	display: inline-flex;
+	box-sizing: border-box;
+	flex-basis: 100%;
+	flex-wrap: nowrap;
+	flex-direction: row;
+	column-gap: 10px;
+	width: 100%;
+	margin-bottom: 25px;
+}
+
+.movie-container img {
+	min-width: 300px;
+	max-width: 27%;
+	height: auto;
+}
+
+.movie-header {
+	padding-left: 0.5%;
+	border-bottom: 1px solid #6658d3;
+	margin-bottom: 25px;
+}
+
+.movie-header h2
+{
+	color: #624eff;
+}
+
+.movie-header span {
+	color: #6658d3;
+}
+
+.movie-desc {
+	padding-left: 0.5%;
+	margin-top: 25px;
+	margin-bottom: 25px;
+	border-top: 1px solid #6658d3;
+}
+
+.movie-desc::before
+{
+	position: relative;
+	content: "Description";
+	top: -25px;
+	color: #6658d3;
+}
+
+.movie-desc p {
+	font-style: italic;
+}
+
+.movie-buttons span
+{
+	display: inline-flex;
+	margin-top: 25px;
+	column-gap: 15px;
+}
+
 .card-add-movie {
 	font-family: "DM Sans", sans-serif;
 	line-height: 1.5;
