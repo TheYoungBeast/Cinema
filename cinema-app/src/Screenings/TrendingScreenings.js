@@ -100,7 +100,7 @@ class TrendingScreenings extends React.Component {
                                 </li>);
                         })
                     }
-                </ul>) : <p style={{margin: "auto auto"}}>Seems like there were no screenings played at that time.</p> }
+                </ul>) : <p style={{margin: "auto auto"}}>Seems like there were no screenings played at that time.<p>Try again, setting a new date range.</p></p> }
             </div>
         </div>
         );
