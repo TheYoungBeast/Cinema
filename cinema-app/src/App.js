@@ -19,7 +19,6 @@ import RemoveRoom from './Rooms/RemoveRoom';
 import CinemaScreenings from "./Screenings/CinemaScreenings";
 import ScreeningDetails from "./Screenings/ScreeningDetails";
 import EditScreening from "./Screenings/EditScreening";
-import RemoveScreening from "./Screenings/RemoveScreening";
 import AddScreening from './Screenings/AddScreening';
 import TrendingScreenings from './Screenings/TrendingScreenings';
 
@@ -75,12 +74,9 @@ class App extends React.Component
       this.props.editScreening(screening, id);
     }
 
-    removeScreening = (id) => {
-      this.props.removeScreening(id);
-    }
-
     render() {
       const state = this.props.CinemaReducer
+      console.log(state);
 
       return state ? ( 
         <div>
@@ -113,7 +109,6 @@ class App extends React.Component
               <Route path=":id">
                 <Route path="" element={<ScreeningDetails { ...state } editScreening={ this.editScreening } /> }/>
                 <Route path="edit" element={<EditScreening { ...state } editScreening={ this.editScreening }/> } />
-                <Route path="remove" element={<RemoveScreening removeScreening={ this.removeScreening } screenings = { state.screenings} /> } />
               </Route>
             </Route>
 

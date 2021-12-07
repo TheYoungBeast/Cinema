@@ -59,13 +59,7 @@ function TrendingScreenings(props)
                 }
             </ul>
         </div>
-        {
-            rank.map( entry => {
-                const id = parseInt(entry[0]);
-                const title = props.movies[id].title;
-                return <div key={`${title}-${id}`}>{title} {entry[1]} tickets</div>; })
-        }
-        </div>
+    </div>
     );
 }
 
