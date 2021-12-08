@@ -4,22 +4,47 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types'
 
-class TrendingScreenings extends React.Component {
-    constructor(props) { 
+class TrendingScreenings extends React.Component 
+{
+    constructor(props) 
+    { 
         super(props)
 
-        let popularAll = props.screenings.reduce( (dict, key) => {
-            let title = props.movies[ key.movieId ].title;
-            dict[ title ] = (dict[ title ] ?? 0) + key.occupation.length;
-            return dict;
-        }, {});
+        if(props.screenings.length)
+        {
+            let popularAll = props.screenings.reduce( (dict, key) => {
+                let title = props.movies[ key.movieId ].title;
+                dict[ title ] = (dict[ title ] ?? 0) + key.occupation.length;
+                return dict;
+            }, {});
 
-        let initRanking = Object.entries(popularAll).sort( ([,a], [,b]) => b-a );
+            let initRanking = Object.entries(popularAll).sort( ([,a], [,b]) => b-a );
 
-        this.state = {
-            firstDate: '',
-            secondDate: '',
-            ranking: initRanking,
+            this.state = {
+                firstDate: '',
+                secondDate: '',
+                ranking: initRanking,
+            }
+        }
+    }
+
+    componentWillReceiveProps(props)
+    {
+        if(!this.state && props.screenings.length)
+        {
+            let popularAll = props.screenings.reduce( (dict, key) => {
+                let title = props.movies[ key.movieId ].title;
+                dict[ title ] = (dict[ title ] ?? 0) + key.occupation.length;
+                return dict;
+            }, {});
+    
+            let initRanking = Object.entries(popularAll).sort( ([,a], [,b]) => b-a );
+    
+            this.setState({
+                firstDate: '',
+                secondDate: '',
+                ranking: initRanking,
+            });
         }
     }
 
@@ -58,7 +83,7 @@ class TrendingScreenings extends React.Component {
         })
     }
     render() {
-        return (<div className="main-container">
+        return this.state ? (<div className="main-container">
              <div className="container-trending">
                     <div className="input">
                         
@@ -103,7 +128,7 @@ class TrendingScreenings extends React.Component {
                 </ul>) : <div style={{margin: "auto auto"}}><p>Seems like there were no screenings played at that time.</p><p>Try again, setting a new date range.</p></div> }
             </div>
         </div>
-        );
+        ) : null;
     }
 }
 
