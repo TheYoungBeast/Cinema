@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 
 import '../css/ScreeningDetails.css';
 import '../css/Purchase.css';
-
 function PurchaseDetails(props)
 {
     return (
@@ -25,30 +24,67 @@ class ScreeningDetails extends React.Component
     {
         super(props);
         const { id } = props.params;
-        const { roomId, movieId } = props.screenings[id];
 
-        const maxRowNo = 7;
-        let bestRowNo = 0;
-        let bestRestModulo = props.rooms[roomId].capacity % maxRowNo;
-
-        for(let i = 4; i <= maxRowNo; i++ )
+        if(props.screenings.length)
         {
-            let modulo = props.rooms[roomId].capacity % i;
-            if(modulo <= bestRestModulo)
+            const { roomId, movieId } = props.screenings[id];
+
+            const maxRowNo = 7;
+            let bestRowNo = 0;
+            let bestRestModulo = props.rooms[roomId].capacity % maxRowNo;
+
+            for(let i = 4; i <= maxRowNo; i++ )
             {
-                bestRestModulo = modulo;
-                bestRowNo = i;
+                let modulo = props.rooms[roomId].capacity % i;
+                if(modulo <= bestRestModulo)
+                {
+                    bestRestModulo = modulo;
+                    bestRowNo = i;
+                }
+            }
+
+            this.state = {
+                id: id,
+                movie: props.movies[movieId],
+                room: props.rooms[roomId],
+                screening: props.screenings[id],
+                bestRowNo: bestRowNo,
+                selectedSeats: [],
+                purchased: false
             }
         }
+    }
 
-        this.state = {
-            id: id,
-            movie: props.movies[movieId],
-            room: props.rooms[roomId],
-            screening: props.screenings[id],
-            bestRowNo: bestRowNo,
-            selectedSeats: [],
-            purchased: false
+    componentWillReceiveProps(props)
+    {
+        if(!this.state && props.rooms.length)
+        {
+            const { id } = props.params;
+            const { roomId, movieId } = props.screenings[id];
+
+            const maxRowNo = 7;
+            let bestRowNo = 0;
+            let bestRestModulo = props.rooms[roomId].capacity % maxRowNo;
+
+            for(let i = 4; i <= maxRowNo; i++ )
+            {
+                let modulo = props.rooms[roomId].capacity % i;
+                if(modulo <= bestRestModulo)
+                {
+                    bestRestModulo = modulo;
+                    bestRowNo = i;
+                }
+            }
+
+            this.setState({
+                id: id,
+                movie: props.movies[movieId],
+                room: props.rooms[roomId],
+                screening: props.screenings[id],
+                bestRowNo: bestRowNo,
+                selectedSeats: [],
+                purchased: false
+            });
         }
     }
 
@@ -94,16 +130,16 @@ class ScreeningDetails extends React.Component
 
     render()
     {
-        const rowNo = this.state.bestRowNo;
-        const seatsCount = this.state.room.capacity;
+        const rowNo = this.state ? this.state.bestRowNo : 0;
+        const seatsCount = this.state ? (this.state.room ? this.state.room.capacity : 0) : 0;
         const seatsPerSide = seatsCount/2;
         const seatsPerRow = Math.ceil(seatsPerSide/rowNo);
         const rows = new Array(rowNo);
         rows.fill(undefined);
-        const seatsInRow = new Array(seatsPerRow);
-        seatsInRow.fill(undefined);
+        const seatsInRow = seatsPerRow ? new Array(seatsPerRow) : undefined;
+        seatsInRow ? seatsInRow.fill(undefined) : (()=>{})();
         
-        return this.state.purchased ? <PurchaseDetails seats={this.state.selectedSeats} /> : 
+        return this.state ? (this.state.purchased ? <PurchaseDetails seats={this.state.selectedSeats} /> : 
         (<div className="main-container">
             <ul>
                 <li>Title: {this.state.movie.title}</li>
@@ -152,7 +188,7 @@ class ScreeningDetails extends React.Component
                 (<button style={{maxWidth: "30%", margin: "auto auto"}} className="action-button" onClick={ this.onBuyTickets }>Buy tickets</button>) : 
                 (<p  style={{textAlign: "center"}}>Choose seats to buy tickets</p>)
             }
-        </div>);
+        </div>)) : null;
     }
 }
 

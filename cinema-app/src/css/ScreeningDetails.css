@@ -165,9 +165,8 @@
   transform: skew(-18deg);
 }
 .right .row-7 {
-  transform: skew(15deg);
-  z-index: -1;
+  transform: skew(13deg);
 }
 .right .row-7 .seat {
-  transform: skew(-20deg);
+  transform: skew(-16deg);
 }  
