@@ -56,6 +56,7 @@ class App extends React.Component
       delete room.id;
 
       this.props.editRoom(room, id);
+      console.log(room, id);
     }
 
     removeRoom = (id) => {

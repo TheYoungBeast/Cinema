@@ -105,7 +105,7 @@ export const addRoom = (room) => (dispatch) => {
 };
 
 export const editRoom = (room, id) => (dispatch) => {
-    apiEditRoom(room).then( res => {
+    apiEditRoom(room, id).then( res => {
         if(res.status === 200)
             dispatch(editRoomAction(room, id));
     }).catch( e => console.error(e) );

@@ -6,14 +6,30 @@ class EditRoom extends React.Component
 {
     constructor(props)
     {
-        super(props);
-
+        super(props)
         let { id } = props.params;
-        this.state = {
-            id: id,
-            roomNumber: props.rooms[id].roomNumber,
-            capacity: props.rooms[id].capacity
-        };
+
+        if(this.props.rooms.length)
+        {
+            this.state = {
+                id: id,
+                roomNumber: props.rooms[id].roomNumber,
+                capacity: props.rooms[id].capacity
+            };
+        }
+    }
+
+    componentDidUpdate()
+    {
+        let { id } = this.props.params;
+
+        if(!this.state)
+        {
+            this.setState({
+                id: id, 
+                roomNumber: this.props.rooms[id].roomNumber,
+                capacity: this.props.rooms[id].capacity});
+        }
     }
 
     onClick = () => {
@@ -54,7 +70,7 @@ class EditRoom extends React.Component
 
     render()
     {
-        return (<div className="main-container">
+        return this.state ? (<div className="main-container">
              <div className="card-add-movie">
                 <div className="card-image">	
                     <h2 className="card-heading">
@@ -79,7 +95,7 @@ class EditRoom extends React.Component
                     Room numbers always contain 3 digits
                 </div>
             </div>
-        </div>);
+        </div>) : null;
     }
 }
 

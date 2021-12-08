@@ -8,14 +8,35 @@ class EditMovie extends React.Component
     {
         super(props);
         let id = props.params.id;
-        this.state = {
-            movieId: id,
-            title: props.movies[id].title,
-            duration: props.movies[id].duration,
-            description: props.movies[id].description,
-            image: props.movies[id].image,
-            trailer: props.movies[id].trailer
-        };
+
+        if(this.props.movies.length)
+        {
+            this.state = {
+                movieId: id,
+                title: props.movies[id].title,
+                duration: props.movies[id].duration,
+                description: props.movies[id].description,
+                image: props.movies[id].image,
+                trailer: props.movies[id].trailer
+            };
+        }
+    }
+
+    componentDidUpdate()
+    {
+        let id = this.props.params.id;
+        
+        if(!this.state)
+        {
+            this.setState({
+                movieId: id,
+                title: this.props.movies[id].title,
+                duration: this.props.movies[id].duration,
+                description: this.props.movies[id].description,
+                image: this.props.movies[id].image,
+                trailer: this.props.movies[id].trailer
+            });
+        }
     }
 
     onChange = (event) => {
@@ -64,7 +85,7 @@ class EditMovie extends React.Component
 
     render()
     {
-        return this.props.movies[this.props.params.id] ? 
+        return this.state ? 
         (<div className="container main-container">
             <div className="card-add-movie">
                 <div className="card-image">	

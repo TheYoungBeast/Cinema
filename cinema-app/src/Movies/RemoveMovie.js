@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import PropTypes from 'prop-types';
 
@@ -6,6 +6,9 @@ function RemoveMovie(props)
 {
     let { id } = useParams();
     let navigate = useNavigate();
+
+    const [movie, setMovie] = useState(props);
+    useEffect(() => setMovie(props.movies[id]), [props]);
 
     const onYesClick = () => {
         let { removeMovie } = props;
@@ -15,12 +18,13 @@ function RemoveMovie(props)
 
     const onNoClick = () => navigate('../../' + id);
 
-    return (<div className="main-container">
+    return movie ?
+    (<div className="main-container">
         <div>
-            <p>Would you like to remove: {props.movies[id].title} ?</p>
+            <p>Would you like to remove: {movie.title} ?</p>
             <button onClick={ onYesClick }>Yes</button> | <button onClick={ onNoClick }>No</button>
         </div>
-    </div>);
+    </div>) : null;
 }
 
 RemoveMovie.propTypes = {
