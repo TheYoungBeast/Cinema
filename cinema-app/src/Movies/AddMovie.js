@@ -9,9 +9,9 @@ class AddMovie extends React.Component
     {
         super(props);
         this.state = {
-            title: "title",
+            title: "",
             duration: 0,
-            description: "description",
+            description: "",
             image: "",
             trailer: ""
         }
@@ -24,8 +24,14 @@ class AddMovie extends React.Component
     }
 
     onClick = (event) => {
-        // tutaj mozna walidowac dane przed wysłaniem
-        this.add();
+        event.preventDefault();
+        let result = Object.entries(this.state).filter( ([key, value]) => !value );
+        console.log(result);
+       
+        if(!result.length)
+            this.add();
+        else
+            alert("Fields cannot be empty!")
     }
 
     onChange = (event) => {
@@ -38,7 +44,7 @@ class AddMovie extends React.Component
                 key = "title";
                 break;
             case 'input-movie-desc':
-                key = "descriptionc"
+                key = "description"
                 break;
             case 'input-movie-dur':
                 key = "duration"
